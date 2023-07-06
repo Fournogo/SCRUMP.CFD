@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="robots" content="noindex">
+  <title>SCRUMP.CFD</title>
+  <style>
+body {
+  text-rendering: optimizeLegibility;
+  image-rendering: pixelated;
+  background-image: url('backgrounds/background.webp');
+  background-repeat: repeat;
+  background-color: #ffffff;
+  color: #e834eb;
+  font-family: "Comic Sans", "Comic Sans MS", "Chalkboard", "ChalkboardSE-Regular", sans-serif;
+  display: flex; /* Add flex display */
+  flex-direction: column; /* Set flex direction to column */
+  justify-content: center; /* Vertically center items */
+  align-items: center; /* Horizontally center items */
+  height: 100vh; /* Set height to 100% viewport height */
+  margin: 0;
+  padding: 0px;
+  position: relative;
+}
+
+h1 {
+  font-size: 48px;
+  margin-bottom: 30px;
+}
+h3 {
+  font-size: 24px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+p {
+  font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+  text-align: center;
+
+}
+.center-rectangle {
+  position: absolute;
+  width: 750px;
+  background-color: #ffff78;
+  z-index: -1;
+  height: 350px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: solid 5px #ffffff;
+  border-left: solid 5px #353535;
+  border-bottom: solid 5px #353535;
+  border-right: solid 5px #ffffff;
+  /*min-width: 650px;*/
+}
+
+.running-cat {
+  position: absolute;
+  transform: translate(-50%);
+  transform: translateY(170px);
+}
+
+.sitting-cat {
+  position: absolute;
+  transform: translate(-200px, -190px);
+}
+
+.bottom-text {
+  position: absolute;
+  transform: translateY(200px);
+}
+
+.music-image {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+  }
+
+.rainbow-text-loop {
+  position: absolute;
+  font-size: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 2px 2px 4px #000000;
+  transform: translate(0,220px);
+  text-align: center;
+  animation: rainbow 5s infinite; 
+}
+
+@keyframes rainbow{
+  0%{color: orange;}  
+  10%{color: purple;} 
+  20%{color: red;}
+  30%{color: CadetBlue;}
+  40%{color: yellow;}
+  50%{color: coral;}
+  60%{color: green;}
+  70%{color: cyan;}
+  80%{color: DeepPink;}
+  90%{color: DodgerBlue;}
+  100%{color: orange;}
+}
+
+.nancy {
+  position: absolute;
+  top: 95%;
+}
+
+#hint {
+  position: absolute;
+  top: -50px;
+  right: 30px;
+  text-shadow: 2px 2px 4px #000000;
+}
+#update-container {
+  position: absolute;
+  top: 35px;
+  width: 550px;
+  height: 87px;
+  background-color: #ffff78;
+  border-top: solid 5px #ffffff;
+  border-left: solid 5px #353535;
+  border-bottom: solid 5px #353535;
+  border-right: solid 5px #ffffff;
+}
+table, th, td {
+    border: solid 2px #353535;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <!--<embed src="kawai.mp3" loop="true" autostart="true" width="2" height="0">-->
+       <!--Update Message-->
+   <div id="update-container">
+    <table style="width: 100%; height: 100%;">
+      <tr>
+        <th style="font-size: 20px; text-shadow: 2px 2px 2px #000000; -webkit-keyframes: rainbow 3s infinite;">UPCOMING WEBSITE UPGRADES:</th>
+      </tr>
+      <tr>
+        <td>MORE FORECAST MODELS, MORE WEATHER, MORE CLOUD!!</td>
+      </tr>
+      <tr>
+        <td>SCRUMP BANK!!! YEP YOU READ THAT RIGHT: BANK DATA</td>
+      </tr>
+      </table>
+   </div>
+  <div class="center-rectangle">
+    <h5 id="hint">~pssst click the logo~</h5>
+  </div>
+  <a href="navigation.html"><img src="gifs/scrumpcfd.gif" width="700" height="400"></a>
+  <div class="running-cat">
+    <img src="gifs/running.gif">
+  </div>
+  <div class="sitting-cat">
+    <img src="gifs/snailing-cat.gif" width="94" height="46">
+  </div>
+  <div id="random-text" class="rainbow-text-loop">
+    <!--<h3>HOME OF THE GIGA SCRUMP!!</h3>-->
+  </div>
+  <div class="music-image">
+    <audio id="myAudio" src="music/kawai.mp3" preload="auto">
+   </audio>
+   <a onClick="togglePlay()">
+      <img src="gifs/music-note.gif">
+    </a>
+  </div>
+  <script src="js/update_front_text.js"></script>
+  <script>
+var myAudio = document.getElementById("myAudio");
+var isPlaying = false;
+
+function togglePlay() {
+  isPlaying ? myAudio.pause() : myAudio.play();
+};
+
+myAudio.onplaying = function() {
+  isPlaying = true;
+};
+myAudio.onpause = function() {
+  isPlaying = false;
+};
+  </script>
+  <!-- <div class="nancy">
+    <img src="nancy.gif">
+  </div> -->
+</body>
+</html>

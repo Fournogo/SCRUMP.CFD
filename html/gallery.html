@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="robots" content="noindex">
+  <title>SCRUMP.CFD</title>
+  <style>
+body {
+  text-rendering: optimizeLegibility;
+  image-rendering: pixelated;
+  background-image: url('backgrounds/background.webp');
+  background-repeat: repeat;
+  background-color: #ffffff;
+  color: #e834eb;
+  font-family: "Comic Sans", "Comic Sans MS", "Chalkboard", "ChalkboardSE-Regular", sans-serif;
+  display: flex; /* Add flex display */
+  flex-direction: column; /* Set flex direction to column */
+  justify-content: center; /* Vertically center items */
+  align-items: center; /* Horizontally center items */
+  height: auto; /* Set height to 100% viewport height */
+  margin: 0;
+  padding: 0px;
+  position: relative;
+}
+h3 {
+  font-size: 24px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.rainbow-text-loop {
+  position: absolute;
+  font-size: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 2px 2px 2px #000000;
+  transform: translate(0,-100px);
+  text-align: center;
+  -webkit-animation: rainbow 5s infinite; 
+}
+@-webkit-keyframes rainbow{
+  0%{color: orange;}  
+  10%{color: purple;} 
+  20%{color: red;}
+  30%{color: CadetBlue;}
+  40%{color: yellow;}
+  50%{color: coral;}
+  60%{color: green;}
+  70%{color: cyan;}
+  80%{color: DeepPink;}
+  90%{color: DodgerBlue;}
+  100%{color: orange;}
+}
+.nancy {
+  position: absolute;
+  top: 25%;
+}
+#image-cont{
+  height: auto; /* Set the height to 100% of the viewport height */
+  box-sizing: border-box; /* Include padding and border in the height calculation */
+  padding: 50px 0; /* Create a consistent boundary of 50px at the top and bottom */
+}
+#image-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  background-color: #ffff78;
+  padding: 20px;
+  border-top: solid 5px #ffffff;
+  border-left: solid 5px #353535;
+  border-bottom: solid 5px #353535;
+  border-right: solid 5px #ffffff;
+}
+
+#image-grid img {
+  width: 200px;
+  height: auto;
+}
+.back-image {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  padding: 0px;
+}
+.music-image {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+  <div class="back-image">
+   <a href="navigation.html">
+      <img style="height: 50px;" src="gifs/back.gif">
+    </a>
+  </div>
+  <div id="image-cont">
+  <div id="image-grid">
+  <img src="teeny/teeny1.jpg">
+  <img src="teeny/teeny2.jpg">
+  <img src="teeny/teeny3.jpg">
+  <img src="teeny/teeny4.jpg">
+  <img src="teeny/teeny7.jpg">
+  <img src="teeny/teeny8.jpg">
+  <img src="teeny/teeny9.jpg">
+  <img src="teeny/teeny10.jpg">
+  <img src="teeny/teeny11.jpg">
+  <img src="teeny/teeny12.jpg">
+  <img src="teeny/teeny13.jpg">
+  <img src="teeny/teeny14.jpg">
+  <img src="teeny/teeny15.jpg">
+  <img src="teeny/teeny16.jpg">
+  <img src="teeny/teeny17.jpg">
+  <img src="teeny/teeny18.jpg">
+  <img src="teeny/teeny19.jpg">
+  <img src="teeny/teeny20.jpg">
+  <img src="teeny/teeny21.jpg">
+  <img src="teeny/teeny24.jpg">
+  <img src="teeny/teeny25.jpg">
+  <img src="teeny/teeny27.jpg">
+  <img src="teeny/teeny28.jpg">
+  <img src="teeny/teeny29.jpg">
+  <img src="teeny/teeny31.jpg">
+  <img src="scrump/scrump1.jpg">
+  <img src="scrump/scrump2.jpg">
+  <img src="scrump/scrump3.jpg">
+  <img src="scrump/scrump4.jpg">
+  <img src="scrump/scrump5.jpg">
+  <img src="scrump/scrump6.jpg">
+  <img src="scrump/scrump8.jpg">
+  <img src="scrump/scrump9.jpg">
+  <img src="scrump/scrump11.jpg">
+  <img src="scrump/scrump12.jpg">
+  <img src="scrump/scrump13.jpg">
+  </div>
+  </div>
+  <div class="music-image">
+    <audio id="myAudio" src="music/kawai.mp3" preload="auto">
+   </audio>
+   <a onClick="togglePlay()">
+      <img src="gifs/music-note.gif">
+    </a>
+  </div>
+    <script src="js/script.js"></script>
+  <script>
+var myAudio = document.getElementById("myAudio");
+var isPlaying = false;
+
+function togglePlay() {
+  isPlaying ? myAudio.pause() : myAudio.play();
+};
+
+myAudio.onplaying = function() {
+  isPlaying = true;
+};
+myAudio.onpause = function() {
+  isPlaying = false;
+};
+  </script>
+</body>
+</html>

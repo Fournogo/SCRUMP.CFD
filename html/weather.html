@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="robots" content="noindex">
+  <title>SCRUMP WEATHER</title>
+  <style>
+body {
+  text-rendering: optimizeLegibility;
+  image-rendering: pixelated;
+  background-image: url('backgrounds/background.webp');
+  background-repeat: repeat;
+  background-color: #ffffff;
+  color: #e834eb;
+  font-family: "Comic Sans", "Comic Sans MS", "Chalkboard", "ChalkboardSE-Regular", sans-serif;
+  display: flex; /* Add flex display */
+  flex-direction: column; /* Set flex direction to column */
+  justify-content: center; /* Vertically center items */
+  align-items: center; /* Horizontally center items */
+  height: 100vh; /* Set height to 100% viewport height */
+  margin: 0;
+  padding: 0px;
+  position: relative;
+}
+h3 {
+  font-size: 24px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+.center-rectangle {
+  position: absolute;
+  width: 800px;
+  background-color: #ffff78;
+  z-index: 1;
+  height: 500px;
+  top: 10%;
+  border-top: solid 5px #ffffff;
+  border-left: solid 5px #353535;
+  border-bottom: solid 5px #353535;
+  border-right: solid 5px #ffffff;
+  /*min-width: 650px;*/
+}
+.rainbow-text-loop {
+  position: relative;
+  font-size: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-shadow: 2px 2px 2px #000000;
+  top: 6%;
+  text-align: center;
+  animation: rainbow 5s infinite; 
+}
+@keyframes rainbow {
+    0%{color: rgb(252, 169, 252);}
+    50%{color: rgb(210, 36, 210);} 
+    100%{color: rgb(252, 169, 252);}
+  }
+.nancy {
+  position: absolute;
+  top: 85%;
+}
+.back-image {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  padding: 0px;
+}
+.music-image {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+  }
+#main-text {
+  top: 200px;
+}
+#links {
+  position: relative; 
+  top: 11%; 
+  text-align: center;
+}
+#links a {
+  z-index: 2;
+}
+</style>
+</head>
+<body>
+  <div class="back-image">
+   <a href="navigation.html">
+      <img style="height: 50px;" src="gifs/back.gif">
+    </a>
+  </div>
+  <!--Music Button-->
+  <div class="music-image">
+    <audio id="myAudio" src="music/kawai.mp3" preload="auto">
+    </audio>
+    <a onClick="togglePlay()">
+      <img src="gifs/music-note.gif">
+    </a>
+  </div>
+  <div class="center-rectangle">
+  <div class="rainbow-text-loop">
+    <h3 id="main-text">CHOOSE FROM OUR ORGANIZED LIST OF GLOBAL CITIES!!!</h3>
+  </div>
+  <div id="links">
+  <a href="weather-page.html?city=austin"><u><h3>AUSTIN</h3></u></a>
+  <a href="weather-page.html?city=fort-worth"><u><h3>FORT WORTH</h3></u></a>
+  <a href="weather-page.html?city=dallas"><u><h3>DALLAS</h3></u></a>
+  <a href="weather-page.html?city=houston"><u><h3>HOUSTON</h3></u></a>
+  <a href="weather-page.html?city=albuquerque"><u><h3>ALBUQUERQUE</h3></u></a>
+  <a href="weather-page.html?city=reno"><u><h3>RENO</h3></u></a>
+  <a href="weather-page.html?city=denver"><u><h3>DENVER</h3></u></a>
+  <a href="weather-page.html?city=new-york"><u><h3>NEW YORK</h3></u></a>
+  <a href="weather-page.html?city=chicago"><u><h3>CHICAGO</h3></u></a>
+  <a href="weather-page.html?city=minneapolis"><u><h3>MINNEAPOLIS</h3></u></a>
+  <a href="weather-page.html?city=seattle"><u><h3>SEATTLE</h3></u></a>
+  </div>
+</div>
+  <div class="nancy">
+    <a href="gallery.html"><img src="gifs/nancy.gif" width="350" height="80"></a>
+  </div>
+</body>
+</html>

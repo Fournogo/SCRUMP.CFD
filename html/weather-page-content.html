@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv=”Pragma” content=”no-cache”>
+  <meta http-equiv=”Expires” content=”-1″>
+  <meta http-equiv=”CACHE-CONTROL” content=”NO-CACHE”>
+  <meta name="robots" content="noindex">
+  <title>SCRUMP WEATHER</title>
+  <link rel="stylesheet" type="text/css" href="css/weather.css">
+  <!--<script src="https://d3js.org/d3.v6.min.js"></script>-->
+  <script src="js/d3js.js"></script>
+  <script src="js/billboard.js"></script>
+  <link rel="stylesheet" href="css/billboard.css">
+  <base target="_parent">
+</head>
+<body>
+  <!--SCRUMP WEATHER logo at top of page-->
+  <div class="top-rectangle">
+    <img id="lightning-1" src="gifs/lightningR.gif">
+    <img id="scrump-weather" style="height: 200px;" src="gifs/scrump-weather.gif">
+  </div>
+
+  <!--Radar and daily forecast box-->
+  <div id="radar-cont">
+    <div id="forecast-container">
+        <div id="forecast-message"><h3 id="forecast-message-text">UHHHHHH WEATHER FORECAST</h3></div>
+        <!--Daily forecast table-->
+        <table style="width: 100%;">
+          <tr>
+            <th>Timeframe</th>
+            <th>Temp</th>
+            <th>Dew<br>Point</th>
+            <th>Precip Chance</th>
+          </tr>
+          <tr height="60px">
+            <td style="font-size: 20px; text-shadow: 2px 2px 2px #000000; -webkit-keyframes: rainbow 3s infinite;" id="day">CURRENTLY</td>
+            <td style="font-size: 20px; font-weight: bold;" id="tem">uhhhhhh</td>
+            <td style="font-size: 20px; font-weight: bold;" id="dew">uhhhhhh</td>
+            <td style="font-size: 20px; font-weight: bold;" id="pre">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-1">uhhhhhh</td>
+            <td id="tem-1">uhhhhhh</td>
+            <td id="dew-1">uhhhhhh</td>
+            <td id="pre-1">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-2">uhhhhhh</td>
+            <td id="tem-2">uhhhhhh</td>
+            <td id="dew-2">uhhhhhh</td>
+            <td id="pre-2">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-3">uhhhhhh</td>
+            <td id="tem-3">uhhhhhh</td>
+            <td id="dew-3">uhhhhhh</td>
+            <td id="pre-3">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-4">uhhhhhh</td>
+            <td id="tem-4">uhhhhhh</td>
+            <td id="dew-4">uhhhhhh</td>
+            <td id="pre-4">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-5">uhhhhhh</td>
+            <td id="tem-5">uhhhhhh</td>
+            <td id="dew-5">uhhhhhh</td>
+            <td id="pre-5">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-6">uhhhhhh</td>
+            <td id="tem-6">uhhhhhh</td>
+            <td id="dew-6">uhhhhhh</td>
+            <td id="pre-6">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-7">uhhhhhh</td>
+            <td id="tem-7">uhhhhhh</td>
+            <td id="dew-7">uhhhhhh</td>
+            <td id="pre-7">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-8">uhhhhhh</td>
+            <td id="tem-8">uhhhhhh</td>
+            <td id="dew-8">uhhhhhh</td>
+            <td id="pre-8">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-9">uhhhhhh</td>
+            <td id="tem-9">uhhhhhh</td>
+            <td id="dew-9">uhhhhhh</td>
+            <td id="pre-9">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-10">uhhhhhh</td>
+            <td id="tem-10">uhhhhhh</td>
+            <td id="dew-10">uhhhhhh</td>
+            <td id="pre-10">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-11">uhhhhhh</td>
+            <td id="tem-11">uhhhhhh</td>
+            <td id="dew-11">uhhhhhh</td>
+            <td id="pre-11">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-12">uhhhhhh</td>
+            <td id="tem-12">uhhhhhh</td>
+            <td id="dew-12">uhhhhhh</td>
+            <td id="pre-12">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-13">uhhhhhh</td>
+            <td id="tem-13">uhhhhhh</td>
+            <td id="dew-13">uhhhhhh</td>
+            <td id="pre-13">uhhhhhh</td>
+          </tr>
+          <tr>
+            <td id="day-14">uhhhhhh</td>
+            <td id="tem-14">uhhhhhh</td>
+            <td id="dew-14">uhhhhhh</td>
+            <td id="pre-14">uhhhhhh</td>
+          </tr>
+        </table> 
+      </div>
+    <div id="radar-button">
+      <img src="png/pause.png">
+    </div>
+    <a id='radar-link' href="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy05Ny4wMTQsMzEuMTRdLCJsb2NhdGlvbiI6bnVsbCwiem9vbSI6Ni43Nzk5OTk5OTk5OTk5OTgsImZpbHRlciI6IldTUi04OEQiLCJsYXllciI6ImJyZWZfcmF3Iiwic3RhdGlvbiI6IktGV1MifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D"><u><p>CLICK HERE FOR MORE DETAILED RADAR</p></u></a>
+    <div id="radar-holder">
+      <img id="radar-loop" src="" style="opacity: 1;">
+      <img id="radar-latest" src="" style="opacity: 0;">
+    </div>
+    <div id="rainbow-text-loop">
+      <h3 id="radar-text">uhhhhhh</h3>
+    </div>
+    <img id="scratch-cat" src="gifs/scratchcat.gif">
+    <img id="dance-cat" src="gifs/dancecat.gif">
+  </div>
+
+    <!--SUN FAX-->
+    <div id="sun-fax" style="text-align: center;">    
+      <table style="width: 100%; height: 100%;">
+      <tr>
+        <th style="font-size: 20px; text-shadow: 2px 2px 2px #000000; -webkit-keyframes: rainbow 3s infinite;" colspan="2">TODAY'S SUN FAX</th>
+      </tr>
+      <tr>
+        <td style="font-weight: bold;">SUNRISE</td>
+        <td id="sunrise">coming soon</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold;">SUNSET</td>
+        <td id="sunset">real soon</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold;">LENGTH OF DAYLIGHT</td>
+        <td id="day-length">super soon</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold;">MAXIMUM SUN ALTITUDE</td>
+        <td id="sun-angle">super soon</td>
+      </tr>
+      <tr>
+        <td style="font-weight: bold;">TODAY'S MAX UV</td>
+        <td id="currentuv">super soon</td>
+      </tr>
+      <tr>
+        <td style="font-size: 10pt;" colspan="2">YOUR COMPUTER REALLY JUST CALCULATED THE ORBIT OF THE EARTH AND YOU DIDN'T EVEN SAY THANK YOU... SMH</td>
+      </tr>
+      </table>
+    </div>
+
+  <!--Hourly Forecast Box-->
+  <div id="hourly-box">
+    <img id="three-d-cat" src="gifs/3d-sitting-cat.gif">
+    <div id="chart-container"><div id="chart"></div></div>
+    <div id="chart-container2"><div id="chart2"></div></div>
+    <div id="chart-container3"><div id="chart3"></div></div>
+  </div>
+
+  <div id="goes-label" style="line-height: 77px;"><h3 style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">THIS AIN'T YA GRANDMA'S SATELLITE!!!</h3></div>
+
+  <!--Satellite Imagery Box-->
+  <div id="goes-image-cont">
+  <div id="goes-next-button-transparent"></div>
+    <div id="goes-loading-text">
+      <h3>LOADING... TRUST ME YOULL GET A SEIZURE IF WE DON'T DO THIS RIGHT..<br><br> IF YOU SEE AN IMAGE BEHIND THIS TEXT THAT MEANS ITS WORKING..<br><br>FOR LONGER TIMELINES THIS COULD TAKE A WHILE</h3>
+    </div>
+    <div id="rainbow-text-loop">
+      <h3 id="goes-text">uhhhhhh</h3>
+    </div>
+  <div id="goes-pause-button">
+    <img src="png/pause.png">
+  </div>
+  <div id="goes-next-button">
+    <img src="png/next.png">
+  </div>
+  <div id="goes-last-button">
+    <img src="png/latest-button.png">
+  </div>
+  <div id="goes-back-button">
+    <img src="png/back.png">
+  </div>
+  <select id="goes-speed-select">
+    <option value="5">5 fps (1500x speed)</option>
+    <option value="10" selected="selected">10 fps (3000x speed)</option>
+    <option value="15">15 fps (4500x speed)</option>
+    <option value="20">20 fps (6000x speed)</option>
+    <option value="25">25 fps (7500x speed)</option>
+    <option value="30">30 fps (9000x speed)</option>
+  </select> 
+  <select id="goes-time-select">
+    <option value="1">Previous 1 hour</option>
+    <option value="2">Previous 2 hours</option>
+    <option value="3">Previous 3 hours</option>
+    <option value="4">Previous 4 hours</option>
+    <option value="8" selected="selected">Previous 8 hours</option>
+    <!--<option value="16">Previous 16 hours</option>
+    <option value="24">Previous 24 hours</option>
+    <option value="48">Previous 48 hours</option>-->
+  </select>
+  <img id="lay-cat" src="gifs/laycat.gif">
+  <div id="goes-images"></div>
+  </div>
+
+  <!--POINT MODEL DATA GRAPH-->
+  <div id="point-chart-box">
+    <img id="white-cat" src="gifs/whitey.gif">
+    <div id="point-chart-container"><div id="point-chart"></div></div>
+  </div>
+
+  <!--RADAR MODEL LABEL-->
+  <!--<div id="radar-model-label" style="line-height: 77px;"><h3 style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">SUPER COOL HRRR FORECAST MODEL</h3></div>-->
+
+<!--RADAR MODEL BOX-->
+<div id="radar-model-cont">
+  <img id="good-luck" src="gifs/good-luck.gif">
+  <div id="radar-model-background"></div>
+  <div id="radar-model-next-button-transparent"></div>
+  <div id="radar-model-loading-text">
+    <h3>I DON'T REALLY KNOW HOW TO SHOW YOU IF THIS ONE IS WORKING RIGHT<br><br>TRUST ME THIS TAKES A LITTLE WHILE OUR INTERNET IS SLOW</h3>
+  </div>
+  <div id="rainbow-text-loop">
+    <h3 id="radar-model-text">uhhhhhh</h3>
+  </div>
+  <div id="radar-model-back-button">
+    <img src="png/back.png">
+  </div>
+<div id="radar-model-pause-button">
+  <img src="png/pause.png">
+</div>
+<div id="radar-model-next-button">
+  <img src="png/next.png">
+</div>
+<select id="radar-model-speed-select">
+  <option value="5">5 fps (4500x speed)</option>
+  <option value="10" selected="selected">10 fps (9000x speed)</option>
+  <option value="15">15 fps (13500x speed)</option>
+  <option value="20">20 fps (18000x speed)</option>
+  <option value="25">25 fps (22500x speed)</option>
+  <option value="30">30 fps (27000x speed)</option>
+</select> 
+<div id="radar-model-images"></div>
+<img id="sleepy-cat" src="gifs/sleepy-cat.gif">
+</div>
+
+<div id="sounding-label" style="line-height: 77px;"><h3 style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">HEY SIRI WHAT'S A RADIOSONDE???</h3></div>
+
+  <!--Sounding Box-->
+  <div id="sounding-cont">
+    <div id="sounding-background"></div>
+    <div id="sounding"></div>
+    <div id="rainbow-text-loop">
+      <h3 id="sounding-text">uhhhh</h3>
+    </div> 
+    <img id="snail-cat" src="gifs/snailing-cat.gif">
+  </div>
+
+  <!--Thank you text-->
+  <a href="gallery.html"><img src="gifs/banr_oprah.gif"></a>
+  <div style="text-align: center;">
+  <h6>ALL DATA ON THIS WEBSITE IS PROVIDED FOR FREE BY VARIOUS DEPARTMENTS OF THE UNITED STATES GOVERNMENT.<br>I DO NOT CLAIM IT AS MY OWN AND DO NOT PRESENT THIS DATA WITH ANY WARRANTY OR REPRESENTATION.<br> HUGE THANKS TO NOAA, NWS, EPA, AND NASA FOR ALL THEIR AWESOME WORK!!!<br><br>SORRY THIS PAGE IS NOT YET MOBILE OPTIMIZED | CONTACT AVERY@SCRUMP.CFD WITH ISSUES</h6>
+  </div>
+  <!--Scriptz-->
+  <script src="js/sounding.js"></script>
+  <script src="js/radar.js"></script>
+  <script src="js/forecast.js"></script>
+  <script src="js/hourly.js"></script>
+  <script src="js/animate_goes.js"></script>
+  <script src="js/set_texts.js"></script>
+  <script src="js/sun_fax.js"></script>
+  <script src="js/solar_calcs.js"></script>
+  <script src="js/model_data.js"></script>
+  <script src="js/get_city.js"></script>
+  <script src="js/mobile_animation_fix.js"></script>
+
+  <!--Extra chart styling for the hourly graph-->
+  <style>
+    #chart .bb-title { font-size: 17px; font-weight: bold; }
+    #chart .bb-tooltip th {color: #ffffff;}
+    /*#chart .bb-event-rects {
+      fill-opacity: 1 !important;
+      fill: rgb(255, 255, 255);
+      z-index: -1;
+    }*/
+    #chart .bb-xgrid-focus {
+      color: #000000 !important;
+    }
+    #chart2 .bb-title { font-size: 17px; font-weight: bold; }
+    #chart3 .bb-title { font-size: 17px; font-weight: bold; }
+    #point-chart .bb-title { font-size: 17px; font-weight: bold; }
+  </style>
+</body>
+</html>

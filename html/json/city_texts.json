@@ -1,0 +1,85 @@
+{
+   "tx": {
+      "fort-worth": {
+         "radar_temp": "I DIDN'T EVEN KNOW I COULD SWEAT THERE!!!..!!",
+         "goes_satellite": "LOOK AT THOSE OUTFLOW WAVEZ",
+         "radar_model": "SUCH COLOR MUCH PRETTY",
+         "sounding": "ANOTHER DAY ANOTHER CHANCE OF STORMS"
+      },
+      "dallas": {
+         "radar_temp": "I DIDN'T EVEN KNOW I COULD SWEAT THERE !!!..!!",
+         "goes_satellite": "LOOK AT THOSE OUTFLOW WAVEZ",
+         "radar_model": "SUCH COLOR MUCH PRETTY",
+         "sounding": "ANOTHER DAY ANOTHER CHANCE OF STORMS"
+      },
+      "austin": {
+         "radar_temp": "I DIDN'T EVEN KNOW I COULD SWEAT THERE!!!..!!",
+         "goes_satellite": "LOOK AT THOSE OUTFLOW WAVEZ",
+         "radar_model": "SUCH COLOR MUCH PRETTY",
+         "sounding": "ANOTHER DAY ANOTHER CHANCE OF STORMS"
+      },
+      "houston": {
+         "radar_temp": "I DIDN'T EVEN KNOW I COULD SWEAT THERE!!!..!!",
+         "goes_satellite": "LOOK AT THOSE OUTFLOW WAVEZ",
+         "radar_model": "SUCH COLOR MUCH PRETTY",
+         "sounding": "ANOTHER DAY ANOTHER CHANCE OF STORMS"
+      }
+   },   
+   "il": {
+      "chicago": {
+         "radar_temp": "HOW BEAUTIFUL!!!..!!",
+         "goes_satellite": "PRETTY CLOUDZ",
+         "radar_model": "SUCH COLOR MUCH PRETTY",
+         "sounding": "MAYBE THE RAIN GODS WILL GIVE US ONE"
+      }
+   },
+   "mn": {
+      "minneapolis": {
+         "radar_temp": "STORMS?!!!..!!",
+         "goes_satellite": "SO MANY LAKES!!",
+         "radar_model": "SUCH COLOR MUCH PRETTY",
+         "sounding": "MORE STABLE THAN YOUR PARENTS!!"
+      }
+   },
+   "wa": {
+      "seattle": {
+         "radar_temp": "AHHH LIFE IS GOOD!!!..!!",
+         "goes_satellite": "SO COMPLEX",
+         "radar_model": "SUCH COLOR MUCH PRETTY",
+         "sounding": "THE GOTH GORLS AREN'T GONNA LIKE THIS!"
+      }
+   },
+   "ny": {
+      "new-york": {
+         "radar_temp": "DONT MIND THE HUMIDITY!!!..!!",
+         "goes_satellite": "THAT DAMN SMOKE BETTER NOT",
+         "radar_model": "SUCH COLOR MUCH PRETTY",
+         "sounding": "OOOOO PRETTY GRAPHS"
+      }
+   },
+   "nm": {
+      "albuquerque": {
+         "radar_temp": "WELL I GUESS THATS NORMAL!!!..!!",
+         "goes_satellite": "CLOUDS R FRIENDS",
+         "radar_model": "SUCH COLOR MUCH PRETTYZ",
+         "sounding": "BASICALLY MONSOON SEASON! HAHA JK!!"
+      }
+   },
+   "nv": {
+      "reno": {
+         "radar_temp": "NOTHING TO SEE HERE!!!..!!",
+         "goes_satellite": "OOOOO MOUNTAINS",
+         "radar_model": "SUCH COLOR MUCH PRETTYZ",
+         "sounding": "BASICALLY MONSOON SEASON! HAHA JK!!"
+      }
+   }
+   ,
+   "co": {
+      "denver": {
+         "radar_temp": "NOTHING TO SEE HERE!!!..!!",
+         "goes_satellite": "OOOOO MOUNTAINS",
+         "radar_model": "SUCH COLOR MUCH PRETTYZ",
+         "sounding": "BASICALLY MONSOON SEASON! HAHA JK!!"
+      }
+   }
+ }
