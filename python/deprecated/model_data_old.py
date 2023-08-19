@@ -24,7 +24,7 @@ import json
 
 # IMPORTANT VARIABLES
 forecast_hours = 19
-path = ''
+path = '/home/scrump/containers/website/html/goes/hrrr_radar/'
 json_filename = 'radar-images'
 
 # REGION DICTIONARY
@@ -112,7 +112,7 @@ ds["refd"] = ds.refd.where(ds.refd > 0)
 projPC = ccrs.PlateCarree()
 res = '10m'
 
-USA_cities = pd.read_csv("/USA_Major_Cities.csv")
+USA_cities = pd.read_csv("/home/scrump/containers/website/python/model_files/USA_Major_Cities.csv")
 
 def generateRadarPlot(step):
     print('Step number: ' + str(step))
@@ -128,7 +128,7 @@ def generateRadarPlot(step):
         draw_labels=True, linewidth=0.5, color='gray', alpha=0.5, linestyle='--'
     )
 
-    im = image.imread('/scrump-logo.png')
+    im = image.imread('/home/scrump/containers/website/python/model_files/scrump-logo.png')
     ax.imshow(im, aspect='equal', extent=(lonW + 0.1, lonE - 18.1, latS + 0.1, latN - 11.1), zorder=300)
 
     gl.ylocator = mticker.FixedLocator([25, 30, 35, 40, 45, 50])

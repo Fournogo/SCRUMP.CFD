@@ -13,15 +13,36 @@ let goes_next_is_clicked = false;
 let next_goes_animation_index = goes_animation_index;
 
 let number_of_goes_images = 96;
-let goes_animation_time = 8;
+let goes_current_animation_time = 8;
+
+let goes_time_selector = 8;
+let goes_speed = 10;
 
 async function getGoesLinks() {
+    enableGoesLoading();
+    goes_image_array = []
+    document.getElementById('goes-nyancat').style.left = ("0%");
+    document.getElementById('goes-loading-percent').innerText = ("LOADING: 0.0% COMPLETE");
+    goes_animation_index = 0
+    next_goes_animation_index = goes_animation_index;
     let link;
     let final_link;
     let element;
+    let image_links;
     const response = await fetch(city.goes_json);
     const json_data = await response.json();
-    const image_links = json_data.images["1200x1200"];
+    if (city.state != 'national') {
+        image_links = json_data.images["1200x1200"];
+    } else if (city.state == 'national') {
+        image_links = json_data.images["2500x1500"];
+    }
+
+    let percent_increment = (1 / number_of_goes_images);
+    let percent_complete = 0 + document.getElementById('goes-images').children.length / number_of_goes_images;
+    let percent_complete_rounded;
+
+    document.getElementById('goes-images').innerHTML = '';
+
     for (let i = 0; i < number_of_goes_images; i++) {
         link = image_links[image_links.length + i - number_of_goes_images - 1];
         final_link = city.goes_link + link;
@@ -35,26 +56,42 @@ async function getGoesLinks() {
         }
         document.getElementById('goes-images').appendChild(element);
         goes_image_array.push(element);
+
+        percent_complete += percent_increment;
+        percent_complete_rounded = ((Math.round(percent_complete * 1000) / 1000) * 100).toFixed(1)
+        document.getElementById('goes-nyancat').style.left = (percent_complete_rounded + "%");
+        document.getElementById('goes-loading-percent').innerText = ("LOADING: " + percent_complete_rounded + "%" + " COMPLETE");
     }
+    clearGoesLoading();
+    goes_animation_paused = false;
+    goes_animation_unpaused = true;
+    goes_pause_is_clicked = false;
+    animateGoes();
 }
 
 function animateGoes() { 
 
     let goes_animation_delay;
 
-    let speed_selector = document.getElementById('goes-speed-select');
-    let speed = speed_selector.value;
-    speed = Number(speed);
-
-    let time_selector = document.getElementById('goes-time-select');
-
-    if (goes_animation_time != Number(time_selector.value)) {
+    if (goes_current_animation_time != goes_time_selector) {
+        console.log('TRIGGERED')
+        if (goes_time_selector * 12 > number_of_goes_images) {
+            goes_current_animation_time = goes_time_selector;
+            number_of_goes_images = goes_current_animation_time * 12;
+            goes_minimum_index = 0;
+            goes_animation_index = goes_minimum_index
+            getGoesLinks();
+            return false
+        }
         for (let i = 0; i < goes_image_array.length; i++) {
             goes_image_array[i].style.opacity = "0";
         }
-        goes_animation_time = Number(time_selector.value);
-        goes_minimum_index = (number_of_goes_images - (goes_animation_time * 12));
+        goes_current_animation_time = goes_time_selector;
+        goes_minimum_index = (number_of_goes_images - (goes_current_animation_time * 12));
         goes_animation_index = goes_minimum_index
+        goes_animation_paused = false;
+        goes_animation_unpaused = true;
+        goes_pause_is_clicked = false;
     }
 
     if (goes_next_is_clicked == true) {
@@ -75,7 +112,7 @@ function animateGoes() {
         goes_image_array[goes_animation_index + 1].style.opacity = "0";
         if (goes_animation_paused == false) {
             next_goes_animation_index = goes_animation_index + 1
-            goes_animation_delay = 1000 / speed
+            goes_animation_delay = 1000 / goes_speed
         } else {
             goes_animation_delay = 0
         }
@@ -86,7 +123,7 @@ function animateGoes() {
         goes_image_array[goes_minimum_index].style.opacity = "0";
         if (goes_animation_paused == false) {
             next_goes_animation_index = goes_minimum_index
-            goes_animation_delay = 20000 / speed
+            goes_animation_delay = 20000 / goes_speed
         } else {
             goes_animation_delay = 0
         }
@@ -97,7 +134,7 @@ function animateGoes() {
         goes_image_array[goes_animation_index + 1].style.opacity = "0";
         if (goes_animation_paused == false) {
             next_goes_animation_index = goes_animation_index + 1
-            goes_animation_delay = 1000 / speed
+            goes_animation_delay = 1000 / goes_speed
         } else {
             goes_animation_delay = 0
         }
@@ -149,18 +186,30 @@ function enableGoesButtons() {
             goes_back_is_clicked = true;
         }
     });
-    
+
+    document.getElementById('goes-speed-select').addEventListener('change', function() {
+        goes_speed = Number(this.value);
+      });
+
+    document.getElementById('goes-time-select').addEventListener('change', function() {
+        goes_time_selector = Number(this.value);
+    });
+
 }
 
 function clearGoesLoading() {
+    document.getElementById('goes-next-button-transparent').style.zIndex = "1000";
     document.getElementById('goes-loading-text').style.opacity = "0";
+}
+
+function enableGoesLoading() {
+    document.getElementById('goes-next-button-transparent').style.zIndex = "-1";
+    document.getElementById('goes-loading-text').style.opacity = "1";
 }
 
 async function animate_goes_async() {
     await getGoesLinks();
-    clearGoesLoading();
     enableGoesButtons();
-    animateGoes();
 }
 
 function animate_goes_main() {

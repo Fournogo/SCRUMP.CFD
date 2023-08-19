@@ -1,0 +1,21 @@
+#goes-image-cont {
+    height: 774px;
+}
+#radar-model-images img {
+    height: 960px;
+}
+#radar-model-cont {
+    height: 1080px;
+}
+#radar-model-background {
+    height: 961px;
+}
+#radar-model-next-button-transparent {
+    height: 960px;
+}
+#goes-next-button-transparent {
+    height: 724px;
+}
+#goes-loading-text, #radar-model-loading-text {
+    transform: translate(-50%, -60%);
+}

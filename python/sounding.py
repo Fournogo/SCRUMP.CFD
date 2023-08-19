@@ -5,11 +5,11 @@ import glob
 import os
 import json
 
-path = ''
+path = '/home/scrump/containers/website/html/goes/sounding/'
 url = 'https://www.spc.noaa.gov/exper/soundings/'
 num_images = 1
 
-city_file = '/cities.json'
+city_file = '/home/scrump/containers/website/html/json/cities.json'
 
 file = open(city_file)
 json_data = json.loads(file.read())

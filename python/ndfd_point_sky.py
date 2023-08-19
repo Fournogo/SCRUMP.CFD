@@ -6,8 +6,8 @@ import os
 url = 'https://digital.mdl.nws.noaa.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=32.7529204&lon=-97.3342545&product=time-series&sky=sky'
 
 json_filename = "sky_cover_data.json"
-path = '/json/'
-city_file = '/cities.json'
+path = '/home/scrump/containers/website/html/json/'
+city_file = '/home/scrump/containers/website/html/json/cities.json'
 
 final_data = {}
 

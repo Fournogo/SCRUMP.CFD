@@ -19,6 +19,39 @@ let sunrise_decimal_utc;
 let sunset_decimal_utc;
 let sun_declination_deg;
 
+function solarTrueLongDeg(julian) {
+  let julian_century = (julian - 2451545) / 36525;
+  let geom_mean_long_sun_deg = 280.46646 + julian_century * (36000.76983 + julian_century * 0.0003032) % 360;
+  let geom_mean_anom_sun_deg = 357.52911 + julian_century * (35999.05029 - 0.0001537 * julian_century);
+
+  let geom_mean_anom_sun_rad = degreesToRadians(geom_mean_anom_sun_deg);
+
+  let sun_eq_ctr = Math.sin(geom_mean_anom_sun_rad) * (1.914602 - julian_century * (0.004817 + 0.000014 * julian_century));
+  + Math.sin(2 * geom_mean_anom_sun_rad) * (0.019993-0.000101 * julian_century);
+  + Math.sin(3 * geom_mean_anom_sun_rad) * 0.000289;
+
+  let sun_true_long_deg = geom_mean_long_sun_deg + sun_eq_ctr;
+
+  //let sun_rt_ascen_rad = Math.atan2(Math.cos(sun_app_long_rad), Math.cos(obl_corr_rad) * Math.sin(sun_app_long_rad));
+  //let sun_rt_ascen_deg = radiansToDegrees(sun_rt_ascen_rad);
+
+  return sun_true_long_deg;
+}
+
+function findEquinox(start, n_iterations=10000000, tolerance=0.0001, step=0.0001) {
+  julian = start
+  for (let i = 0; i < n_iterations; i++) {
+    current = solarTrueLongDeg(julian)
+    next = solarTrueLongDeg(julian + step)
+    if (next % 360 <= tolerance) {
+      console.log(julian)
+      return (julian + step)
+    }
+    julian += step
+  }
+  return false
+}
+
 function solar_calcs_main() {
 
   // IMPORTANT INFORMATION FOR LOCATING THE OBSERVER
@@ -28,9 +61,7 @@ function solar_calcs_main() {
   let today = new Date();
   today.setHours(12, 0, 0, 0)
     
-  console.log(today)
   let julian = getJulian(today);
-  console.log(julian);
 
   let julian_century = (julian - 2451545) / 36525;
   let geom_mean_long_sun_deg = 280.46646 + julian_century * (36000.76983 + julian_century * 0.0003032) % 360;

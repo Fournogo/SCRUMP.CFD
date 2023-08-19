@@ -54,7 +54,7 @@
          "uv_hourly": "https://data.epa.gov/efservice/getEnvirofactsUVHOURLY/CITY/denver/STATE/co/json",
          "uv_daily": "https://data.epa.gov/efservice/getEnvirofactsUVDAILY/CITY/denver/STATE/co/json",
          "sounding_code": "GJT",
-         "model_state": "co",
+         "model_state": "mn",
          "state": "co"
       },
 
@@ -111,7 +111,7 @@
          "uv_hourly": "https://data.epa.gov/efservice/getEnvirofactsUVHOURLY/CITY/reno/STATE/nv/json",
          "uv_daily": "https://data.epa.gov/efservice/getEnvirofactsUVDAILY/CITY/reno/STATE/nv/json",
          "sounding_code": "REV",
-         "model_state": "nv",
+         "model_state": "nm",
          "state": "nv"
       },
 

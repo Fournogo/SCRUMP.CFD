@@ -5,7 +5,7 @@ import glob
 import os
 import json
 
-path = ''
+path = '/home/scrump/containers/website/html/goes/sp/'
 url = 'https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/sp/GEOCOLOR/'
 image_size = '1200x1200'
 num_images = 96

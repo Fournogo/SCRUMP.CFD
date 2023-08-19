@@ -15,17 +15,47 @@
   <base target="_parent">
 </head>
 <body>
-  <!--SCRUMP WEATHER logo at top of page-->
-  <div class="top-rectangle">
-    <img id="lightning-1" src="gifs/lightningR.gif">
-    <img id="scrump-weather" style="height: 200px;" src="gifs/scrump-weather.gif">
+  <audio id="nyancat_audio" src="music/nyancat.mp3" preload="auto"></audio>
+  <script>
+    let nyancat_isPlaying = false;    
+    let nyancat_audio = document.getElementById("nyancat_audio");
+    function toggleNyanCatPlay() {
+      nyancat_isPlaying ? nyancat_audio.pause() : nyancat_audio.play();
+    };
+    nyancat_audio.onplaying = function() {
+      nyancat_isPlaying = true;
+    };
+    nyancat_audio.onpause = function() {
+      nyancat_isPlaying = false;
+    };
+  </script>
+  <div class="yellow-rectangle purple-flash-text" id="warning">
+    <h3 class="center">PARDON OUR MESS WHILE WE FIX SCRUMP WEATHER'S AWFUL CSS..<br>NEW KOOL FEATURES R PLANNED BUT WE HAVE TO FIX THIS FIRST</h3>
   </div>
-
-  <!--Radar and daily forecast box-->
-  <div id="radar-cont">
-    <div id="forecast-container">
-        <div id="forecast-message"><h3 id="forecast-message-text">UHHHHHH WEATHER FORECAST</h3></div>
+  <!--/*----------------------------------------------------------*/
+  /*---------------------- TOP RECTANGLE ------------------------*/
+  /*----------------------------------------------------------*/-->
+  <div class="yellow-rectangle" id="top-rectangle">
+    <img id="lightning-1" src="gifs/lightningR.gif">
+    <img class="center" id="scrump-weather" style="height: 200px;" src="gifs/scrump-weather.gif">
+  </div>
+  <!-- /*----------------------------------------------------------*/
+  /*------------ RADAR AND TEMP DATA CONTAINER ---------------*/
+  /*----------------------------------------------------------*/-->
+  <div class="yellow-rectangle" id="radar-temp-container">
+  <img id="scratch-cat" src="gifs/scratchcat.gif">
+  <img id="dance-cat" src="gifs/dancecat.gif">
+    <div class="main-content">
+      <div class="inset-image left-half" id="radar-container">
+        <img class="radar-overlap" id="radar-loop" style="opacity: 1;">
+        <img class="radar-overlap" id="radar-latest" style="opacity: 0;">
+      </div>
+      <div class="right-half" id="forecast-container">
+       <div id="forecast-message">
+        <h3 class="purple-flash-text center" id="forecast-message-text">UHHHHHH WEATHER FORECAST</h3>
+        </div>
         <!--Daily forecast table-->
+        <div id="forecast-table">
         <table style="width: 100%;">
           <tr>
             <th>Timeframe</th>
@@ -34,7 +64,7 @@
             <th>Precip Chance</th>
           </tr>
           <tr height="60px">
-            <td style="font-size: 20px; text-shadow: 2px 2px 2px #000000; -webkit-keyframes: rainbow 3s infinite;" id="day">CURRENTLY</td>
+            <td class="purple-flash-text" id="day">CURRENTLY</td>
             <td style="font-size: 20px; font-weight: bold;" id="tem">uhhhhhh</td>
             <td style="font-size: 20px; font-weight: bold;" id="dew">uhhhhhh</td>
             <td style="font-size: 20px; font-weight: bold;" id="pre">uhhhhhh</td>
@@ -125,26 +155,26 @@
           </tr>
         </table> 
       </div>
-    <div id="radar-button">
+      </div>
+    </div>
+    <div class="toolbar">
+    <div class="button" id="radar-button">
       <img src="png/pause.png">
     </div>
-    <a id='radar-link' href="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy05Ny4wMTQsMzEuMTRdLCJsb2NhdGlvbiI6bnVsbCwiem9vbSI6Ni43Nzk5OTk5OTk5OTk5OTgsImZpbHRlciI6IldTUi04OEQiLCJsYXllciI6ImJyZWZfcmF3Iiwic3RhdGlvbiI6IktGV1MifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D"><u><p>CLICK HERE FOR MORE DETAILED RADAR</p></u></a>
-    <div id="radar-holder">
-      <img id="radar-loop" src="" style="opacity: 1;">
-      <img id="radar-latest" src="" style="opacity: 0;">
-    </div>
-    <div id="rainbow-text-loop">
+    <a class="toolbar-element" href="https://radar.weather.gov/?settings=v1_eyJhZ2VuZGEiOnsiaWQiOiJsb2NhbCIsImNlbnRlciI6Wy05Ny4wMTQsMzEuMTRdLCJsb2NhdGlvbiI6bnVsbCwiem9vbSI6Ni43Nzk5OTk5OTk5OTk5OTgsImZpbHRlciI6IldTUi04OEQiLCJsYXllciI6ImJyZWZfcmF3Iiwic3RhdGlvbiI6IktGV1MifSwiYW5pbWF0aW5nIjpmYWxzZSwiYmFzZSI6InN0YW5kYXJkIiwiYXJ0Y2MiOmZhbHNlLCJjb3VudHkiOmZhbHNlLCJjd2EiOmZhbHNlLCJyZmMiOmZhbHNlLCJzdGF0ZSI6ZmFsc2UsIm1lbnUiOnRydWUsInNob3J0RnVzZWRPbmx5Ijp0cnVlLCJvcGFjaXR5Ijp7ImFsZXJ0cyI6MC44LCJsb2NhbCI6MC42LCJsb2NhbFN0YXRpb25zIjowLjgsIm5hdGlvbmFsIjowLjZ9fQ%3D%3D"><u><h4>CLICK HERE FOR MORE DETAILED RADAR</h4></u></a>
+    <div class="toolbar-element right purple-flash-text">
       <h3 id="radar-text">uhhhhhh</h3>
     </div>
-    <img id="scratch-cat" src="gifs/scratchcat.gif">
-    <img id="dance-cat" src="gifs/dancecat.gif">
+  </div>
   </div>
 
-    <!--SUN FAX-->
-    <div id="sun-fax" style="text-align: center;">    
+    <!--  /*----------------------------------------------------------*/
+  /*------------------ SUN FAX CONTAINER ----------------------*/
+  /*----------------------------------------------------------*/-->
+    <div class="yellow-rectangle" id="sun-fax-container">    
       <table style="width: 100%; height: 100%;">
       <tr>
-        <th style="font-size: 20px; text-shadow: 2px 2px 2px #000000; -webkit-keyframes: rainbow 3s infinite;" colspan="2">TODAY'S SUN FAX</th>
+        <th class="purple-flash-text" colspan="2">TODAY'S SUN FAX</th>
       </tr>
       <tr>
         <td style="font-weight: bold;">SUNRISE</td>
@@ -172,89 +202,125 @@
       </table>
     </div>
 
-  <!--Hourly Forecast Box-->
-  <div id="hourly-box">
+  <!--  /*----------------------------------------------------------*/
+  /*---------------- CHART DATA CONTAINER --------------------*/
+  /*----------------------------------------------------------*/-->
+  <div class="yellow-rectangle" id="hourly-box">
     <img id="three-d-cat" src="gifs/3d-sitting-cat.gif">
-    <div id="chart-container"><div id="chart"></div></div>
-    <div id="chart-container2"><div id="chart2"></div></div>
-    <div id="chart-container3"><div id="chart3"></div></div>
+    <div class="chart-container"><div id="chart"></div></div>
+    <div class="chart-container"><div id="chart2"></div></div>
+    <div class="chart-container"><div id="chart3"></div></div>
   </div>
+  
+  <!--  /*----------------------------------------------------------*/
+  /*---------------------- GOES LABEL BOX ---------------------*/
+  /*----------------------------------------------------------*/-->
+  <div class="yellow-rectangle" id="goes-label" style="line-height: 77px;"><h3 class="center" style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">THIS AIN'T YA GRANDMA'S SATELLITE!!!</h3></div>
 
-  <div id="goes-label" style="line-height: 77px;"><h3 style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">THIS AIN'T YA GRANDMA'S SATELLITE!!!</h3></div>
+  <!--  /*----------------------------------------------------------*/
+  /*--------------- GOES SATELLITE CONTAINER -----------------*/
+  /*----------------------------------------------------------*/-->
+  <div class="yellow-rectangle" id="goes-image-cont">
+    <img id="lay-cat" src="gifs/laycat.gif">
 
-  <!--Satellite Imagery Box-->
-  <div id="goes-image-cont">
-  <div id="goes-next-button-transparent"></div>
-    <div id="goes-loading-text">
-      <h3>LOADING... TRUST ME YOULL GET A SEIZURE IF WE DON'T DO THIS RIGHT..<br><br> IF YOU SEE AN IMAGE BEHIND THIS TEXT THAT MEANS ITS WORKING..<br><br>FOR LONGER TIMELINES THIS COULD TAKE A WHILE</h3>
+    <div class="main-content inset-image">
+      <div id="goes-images"></div>
+      <div class="hidden-button" id="goes-next-button-transparent" style="z-index: -1;"></div>
+      <div class="loading-box yellow-rectangle center" id="goes-loading-text">
+        <h3 class="loading-text">IF NYANCAT IS MOVING THEN ITS WORKING JUST BE PATIENT<br><br>IF WE DON'T LOAD THIS RIGHT IT'LL GIVE YOU A SEIZURE<br></h3>
+        <h2 class="loading-text" id="goes-loading-percent">LOADING: </h2>
+        <div class="loading-bar-background" id="goes-loading-bar-background">
+        <div class="loading-bar" id="goes-loading-bar">
+        <a onClick="toggleNyanCatPlay()">
+        <img id="goes-nyancat" style="width: 60px; position: relative; cursor: pointer;" src="gifs/nyancat.gif">
+        </a>
+        </div>
+      </div>
+      </div>
     </div>
-    <div id="rainbow-text-loop">
+
+    <div class="toolbar">
+    <div class="button" id="goes-pause-button">
+      <img src="png/pause.png">
+    </div>
+    <div class="button" id="goes-back-button">
+      <img src="png/back.png">
+    </div>
+    <div class="button" id="goes-next-button">
+      <img src="png/next.png">
+    </div>
+    <div class="button" id="goes-last-button">
+      <img src="png/latest-button.png">
+    </div>
+    <select class="toolbar-element" id="goes-speed-select">
+      <option value="5">5 fps (1500x speed)</option>
+      <option value="10" selected="selected">10 fps (3000x speed)</option>
+      <option value="15">15 fps (4500x speed)</option>
+      <option value="20">20 fps (6000x speed)</option>
+      <option value="25">25 fps (7500x speed)</option>
+      <option value="30">30 fps (9000x speed)</option>
+    </select> 
+    <select class="toolbar-element" id="goes-time-select">
+      <option value="1">Previous 1 hour</option>
+      <option value="2">Previous 2 hours</option>
+      <option value="3">Previous 3 hours</option>
+      <option value="4">Previous 4 hours</option>
+      <option value="8" selected="selected">Previous 8 hours</option>
+      <!--<option value="16">Previous 16 hours</option>
+      <option value="24">Previous 24 hours</option>
+      <option value="48">Previous 48 hours</option>-->
+    </select>
+    <div class="toolbar-element right purple-flash-text">
       <h3 id="goes-text">uhhhhhh</h3>
     </div>
-  <div id="goes-pause-button">
-    <img src="png/pause.png">
-  </div>
-  <div id="goes-next-button">
-    <img src="png/next.png">
-  </div>
-  <div id="goes-last-button">
-    <img src="png/latest-button.png">
-  </div>
-  <div id="goes-back-button">
-    <img src="png/back.png">
-  </div>
-  <select id="goes-speed-select">
-    <option value="5">5 fps (1500x speed)</option>
-    <option value="10" selected="selected">10 fps (3000x speed)</option>
-    <option value="15">15 fps (4500x speed)</option>
-    <option value="20">20 fps (6000x speed)</option>
-    <option value="25">25 fps (7500x speed)</option>
-    <option value="30">30 fps (9000x speed)</option>
-  </select> 
-  <select id="goes-time-select">
-    <option value="1">Previous 1 hour</option>
-    <option value="2">Previous 2 hours</option>
-    <option value="3">Previous 3 hours</option>
-    <option value="4">Previous 4 hours</option>
-    <option value="8" selected="selected">Previous 8 hours</option>
-    <!--<option value="16">Previous 16 hours</option>
-    <option value="24">Previous 24 hours</option>
-    <option value="48">Previous 48 hours</option>-->
-  </select>
-  <img id="lay-cat" src="gifs/laycat.gif">
-  <div id="goes-images"></div>
+    </div>
   </div>
 
-  <!--POINT MODEL DATA GRAPH-->
-  <div id="point-chart-box">
+  <!--/*----------------------------------------------------------*/
+  /*---------------- POINT MODEL DATA CHARTS -----------------*/
+  /*----------------------------------------------------------*/-->
+  <div class="yellow-rectangle" id="point-chart-box">
     <img id="white-cat" src="gifs/whitey.gif">
-    <div id="point-chart-container"><div id="point-chart"></div></div>
+    <div class="chart-container"><div id="point-chart"></div></div>
   </div>
 
   <!--RADAR MODEL LABEL-->
   <!--<div id="radar-model-label" style="line-height: 77px;"><h3 style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">SUPER COOL HRRR FORECAST MODEL</h3></div>-->
 
-<!--RADAR MODEL BOX-->
-<div id="radar-model-cont">
+<!--/*----------------------------------------------------------*/
+  /*---------------- MODEL DATA CONTAINER --------------------*/
+  /*----------------------------------------------------------*/-->
+<div class="yellow-rectangle" id="radar-model-cont">
+  <img id="sleepy-cat" src="gifs/sleepy-cat.gif">
   <img id="good-luck" src="gifs/good-luck.gif">
-  <div id="radar-model-background"></div>
-  <div id="radar-model-next-button-transparent"></div>
-  <div id="radar-model-loading-text">
-    <h3>I DON'T REALLY KNOW HOW TO SHOW YOU IF THIS ONE IS WORKING RIGHT<br><br>TRUST ME THIS TAKES A LITTLE WHILE OUR INTERNET IS SLOW</h3>
+  <div class="main-content inset-image" id="radar-model-background">
+    <div id="radar-model-images"></div>
+    <div class="hidden-button" id="radar-model-next-button-transparent" style="z-index: -1;"></div>
+    <div class="loading-box yellow-rectangle center" id="radar-model-loading-text">
+      <h3 class="loading-text">IF NYANCAT IS MOVING THEN ITS WORKING JUST BE PATIENT<br><br>TRUST ME THIS TAKES A LITTLE WHILE OUR INTERNET IS SLOW<br></h3>
+      <h2 class="loading-text" id="model-data-loading-percent">LOADING: </h2>
+      <div class="loading-bar-background" id="model-data-loading-bar-background">
+      <div class="loading-bar" id="model-data-loading-bar">
+      <a onClick="toggleNyanCatPlay()">
+      <img id="model-data-nyancat" style="width: 60px; position: relative; cursor: pointer;" src="gifs/nyancat.gif">
+      </a>
+      </div>
+      </div>
+    </div>
+    
   </div>
-  <div id="rainbow-text-loop">
-    <h3 id="radar-model-text">uhhhhhh</h3>
-  </div>
-  <div id="radar-model-back-button">
+  
+  <div class="toolbar">
+  <div class="button" id="radar-model-back-button">
     <img src="png/back.png">
   </div>
-<div id="radar-model-pause-button">
+<div class="button" id="radar-model-pause-button">
   <img src="png/pause.png">
 </div>
-<div id="radar-model-next-button">
+<div class="button" id="radar-model-next-button">
   <img src="png/next.png">
 </div>
-<select id="radar-model-speed-select">
+<select class="toolbar-element" id="radar-model-speed-select">
   <option value="5">5 fps (4500x speed)</option>
   <option value="10" selected="selected">10 fps (9000x speed)</option>
   <option value="15">15 fps (13500x speed)</option>
@@ -262,19 +328,33 @@
   <option value="25">25 fps (22500x speed)</option>
   <option value="30">30 fps (27000x speed)</option>
 </select> 
-<div id="radar-model-images"></div>
-<img id="sleepy-cat" src="gifs/sleepy-cat.gif">
+<select class="toolbar-element" id="model-data-selector">
+  <option value="t2m">Temperature</option>
+  <option value="refd" selected="selected">Reflectivity</option>
+</select> 
+<div class="toolbar-element right">
+  <h3 class="purple-flash-text" id="radar-model-text">uhhhhhh</h3>
+</div>
+</div>
 </div>
 
-<div id="sounding-label" style="line-height: 77px;"><h3 style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">HEY SIRI WHAT'S A RADIOSONDE???</h3></div>
+<!--/*----------------------------------------------------------*/
+/*-------------------- SOUNDING LABEL BOX -------------------*/
+/*----------------------------------------------------------*/-->
+<div class="yellow-rectangle" id="sounding-label" style="line-height: 77px;"><h3 class="center" style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">HEY SIRI WHAT'S A RADIOSONDE???</h3></div>
 
-  <!--Sounding Box-->
-  <div id="sounding-cont">
-    <div id="sounding-background"></div>
+  <!--/*----------------------------------------------------------*/
+  /*---------------- SOUNDING CONTAINER --------------------*/
+  /*----------------------------------------------------------*/-->
+  <div class="yellow-rectangle" id="sounding-cont">
+    <div class="main-content inset-image" id="sounding-background">
     <div id="sounding"></div>
-    <div id="rainbow-text-loop">
+  </div>
+    <div class="toolbar">
+    <div class="purple-flash-text right">
       <h3 id="sounding-text">uhhhh</h3>
     </div> 
+    </div>
     <img id="snail-cat" src="gifs/snailing-cat.gif">
   </div>
 
@@ -283,6 +363,10 @@
   <div style="text-align: center;">
   <h6>ALL DATA ON THIS WEBSITE IS PROVIDED FOR FREE BY VARIOUS DEPARTMENTS OF THE UNITED STATES GOVERNMENT.<br>I DO NOT CLAIM IT AS MY OWN AND DO NOT PRESENT THIS DATA WITH ANY WARRANTY OR REPRESENTATION.<br> HUGE THANKS TO NOAA, NWS, EPA, AND NASA FOR ALL THEIR AWESOME WORK!!!<br><br>SORRY THIS PAGE IS NOT YET MOBILE OPTIMIZED | CONTACT AVERY@SCRUMP.CFD WITH ISSUES</h6>
   </div>
+
+  <a onClick="toggleNyanCatPlay()">
+  <img id="goes-nyancat" style="width: 60px; position: absolute; left: 20px; bottom: 20px; cursor: pointer;" src="gifs/nyancat.gif">
+  </a>
   <!--Scriptz-->
   <script src="js/sounding.js"></script>
   <script src="js/radar.js"></script>

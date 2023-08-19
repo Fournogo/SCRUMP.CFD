@@ -1,0 +1,9 @@
+{
+    "usa" : {
+        "city": "national",
+        "goes_json": "https://cdn.star.nesdis.noaa.gov/GOES16/catalogs/GOES16/CONUS_GEOCOLOR_catalog.json",
+        "goes_link": "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/CONUS/GEOCOLOR/",
+        "model_state": "national",
+        "state": "national"
+    }
+}

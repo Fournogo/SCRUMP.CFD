@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv=”Pragma” content=”no-cache”>
+  <meta http-equiv=”Expires” content=”-1″>
+  <meta http-equiv=”CACHE-CONTROL” content=”NO-CACHE”>
+  <meta name="robots" content="noindex">
+  <title>SCRUMP WEATHER</title>
+  <link rel="stylesheet" type="text/css" href="css/weather.css">
+  <link rel="stylesheet" type="text/css" href="css/national.css">
+  <!--<script src="https://d3js.org/d3.v6.min.js"></script>-->
+  <script src="js/d3js.js"></script>
+  <script src="js/billboard.js"></script>
+  <link rel="stylesheet" href="css/billboard.css">
+  <base target="_parent">
+</head>
+<body>
+  <audio id="nyancat_audio" src="music/nyancat.mp3" preload="auto"></audio>
+  <script>
+    let nyancat_isPlaying = false;    
+    let nyancat_audio = document.getElementById("nyancat_audio");
+    function toggleNyanCatPlay() {
+      nyancat_isPlaying ? nyancat_audio.pause() : nyancat_audio.play();
+    };
+    nyancat_audio.onplaying = function() {
+      nyancat_isPlaying = true;
+    };
+    nyancat_audio.onpause = function() {
+      nyancat_isPlaying = false;
+    };
+  </script>
+
+<div class="yellow-rectangle purple-flash-text" id="warning">
+  <h3 class="center">PARDON OUR MESS WHILE WE FIX SCRUMP WEATHER'S AWFUL CSS..<br>NEW KOOL FEATURES R PLANNED BUT WE HAVE TO FIX THIS FIRST</h3>
+</div>
+
+  <!--SCRUMP WEATHER logo at top of page-->
+  <div class="yellow-rectangle" id="top-rectangle">
+    <img id="lightning-1" src="gifs/lightningR.gif">
+    <img class="center" id="scrump-weather" style="height: 200px;" src="gifs/scrump-weather.gif">
+  </div>
+  
+  <!--GOES Label-->
+  <div class="yellow-rectangle" id="goes-label" style="line-height: 77px;"><h3 class="center" style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">THIS AIN'T YA GRANDMA'S SATELLITE!!!</h3></div>
+
+  <!--Satellite Imagery Box-->
+  <div class="yellow-rectangle" id="goes-image-cont">
+
+    <img id="lay-cat" src="gifs/laycat.gif">
+
+    <div class="main-content inset-image">
+      <div id="goes-images"></div>
+      <div class="hidden-button" id="goes-next-button-transparent" style="z-index: -1;"></div>
+      <div class="loading-box yellow-rectangle center" id="goes-loading-text">
+        <h3 class="loading-text">IF NYANCAT IS MOVING THEN ITS WORKING JUST BE PATIENT<br><br>IF WE DON'T LOAD THIS RIGHT IT'LL GIVE YOU A SEIZURE<br></h3>
+        <h2 class="loading-text" id="goes-loading-percent">LOADING: </h2>
+        <div class="loading-bar-background" id="goes-loading-bar-background">
+        <div class="loading-bar" id="goes-loading-bar">
+        <a onClick="toggleNyanCatPlay()">
+        <img id="goes-nyancat" style="width: 60px; position: relative; cursor: pointer;" src="gifs/nyancat.gif">
+        </a>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+    <div class="button" id="goes-pause-button">
+      <img src="png/pause.png">
+    </div>
+    <div class="button" id="goes-back-button">
+      <img src="png/back.png">
+    </div>
+    <div class="button" id="goes-next-button">
+      <img src="png/next.png">
+    </div>
+    <div class="button" id="goes-last-button">
+      <img src="png/latest-button.png">
+    </div>
+    <select class="toolbar-element" id="goes-speed-select">
+      <option value="5">5 fps (1500x speed)</option>
+      <option value="10" selected="selected">10 fps (3000x speed)</option>
+      <option value="15">15 fps (4500x speed)</option>
+      <option value="20">20 fps (6000x speed)</option>
+      <option value="25">25 fps (7500x speed)</option>
+      <option value="30">30 fps (9000x speed)</option>
+    </select> 
+    <select class="toolbar-element" id="goes-time-select">
+      <option value="1">Previous 1 hour</option>
+      <option value="2">Previous 2 hours</option>
+      <option value="3">Previous 3 hours</option>
+      <option value="4">Previous 4 hours</option>
+      <option value="8" selected="selected">Previous 8 hours</option>
+      <!--<option value="16">Previous 16 hours</option>
+      <option value="24">Previous 24 hours</option>
+      <option value="48">Previous 48 hours</option>-->
+    </select>
+    <div class="toolbar-element right purple-flash-text">
+      <h3 id="goes-text">uhhhhhh</h3>
+    </div>
+    </div>
+  </div>
+    
+    <!--RADAR MODEL LABEL-->
+    <div class="yellow-rectangle" id="sounding-label" style="line-height: 77px;"><h3 class="center" style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">HEY SIRI WHAT'S A RADIOSONDE???</h3></div>
+
+    <!--RADAR MODEL BOX-->
+    <div class="yellow-rectangle" id="radar-model-cont">
+      <img id="sleepy-cat" src="gifs/sleepy-cat.gif">
+      <img id="good-luck" src="gifs/good-luck.gif">
+      <div class="main-content inset-image" id="radar-model-background">
+        <div id="radar-model-images"></div>
+        <div class="hidden-button" id="radar-model-next-button-transparent" style="z-index: -1;"></div>
+        <div class="loading-box yellow-rectangle center" id="radar-model-loading-text">
+          <h3 class="loading-text">IF NYANCAT IS MOVING THEN ITS WORKING JUST BE PATIENT<br><br>TRUST ME THIS TAKES A LITTLE WHILE OUR INTERNET IS SLOW<br></h3>
+          <h2 class="loading-text" id="model-data-loading-percent">LOADING: </h2>
+          <div class="loading-bar-background" id="model-data-loading-bar-background">
+          <div class="loading-bar" id="model-data-loading-bar">
+          <a onClick="toggleNyanCatPlay()">
+          <img id="model-data-nyancat" style="width: 60px; position: relative; cursor: pointer;" src="gifs/nyancat.gif">
+          </a>
+          </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="toolbar">
+      <div class="button" id="radar-model-back-button">
+        <img src="png/back.png">
+      </div>
+    <div class="button" id="radar-model-pause-button">
+      <img src="png/pause.png">
+    </div>
+    <div class="button" id="radar-model-next-button">
+      <img src="png/next.png">
+    </div>
+    <select class="toolbar-element" id="radar-model-speed-select">
+      <option value="5">5 fps (4500x speed)</option>
+      <option value="10" selected="selected">10 fps (9000x speed)</option>
+      <option value="15">15 fps (13500x speed)</option>
+      <option value="20">20 fps (18000x speed)</option>
+      <option value="25">25 fps (22500x speed)</option>
+      <option value="30">30 fps (27000x speed)</option>
+    </select> 
+    <select class="toolbar-element" id="model-data-selector">
+      <option value="t2m">Temperature</option>
+      <option value="refd" selected="selected">Reflectivity</option>
+    </select> 
+    <div class="toolbar-element right">
+      <h3 class="purple-flash-text" id="radar-model-text">uhhhhhh</h3>
+    </div>
+    </div>
+    </div>
+
+  <!--Thank you text-->
+  <a href="gallery.html"><img src="gifs/banr_oprah.gif"></a>
+  <div style="text-align: center;">
+  <h6>ALL DATA ON THIS WEBSITE IS PROVIDED FOR FREE BY VARIOUS DEPARTMENTS OF THE UNITED STATES GOVERNMENT.<br>I DO NOT CLAIM IT AS MY OWN AND DO NOT PRESENT THIS DATA WITH ANY WARRANTY OR REPRESENTATION.<br> HUGE THANKS TO NOAA, NWS, EPA, AND NASA FOR ALL THEIR AWESOME WORK!!!<br><br>SORRY THIS PAGE IS NOT YET MOBILE OPTIMIZED | CONTACT AVERY@SCRUMP.CFD WITH ISSUES</h6>
+  </div>
+  
+  <a onClick="toggleNyanCatPlay()">
+  <img id="goes-nyancat" style="width: 60px; position: absolute; left: 20px; bottom: 20px; cursor: pointer;" src="gifs/nyancat.gif">
+  </a>
+  <!--Scriptz-->
+  <script src="js/animate_goes.js"></script>
+  <script src="js/model_data.js"></script>
+  <script src="js/get_region.js"></script>
+  <script src="js/mobile_animation_fix.js"></script>
+
+  <!--Extra chart styling for the hourly graph-->
+  <style>
+    #chart .bb-title { font-size: 17px; font-weight: bold; }
+    #chart .bb-tooltip th {color: #ffffff;}
+    /*#chart .bb-event-rects {
+      fill-opacity: 1 !important;
+      fill: rgb(255, 255, 255);
+      z-index: -1;
+    }*/
+    #chart .bb-xgrid-focus {
+      color: #000000 !important;
+    }
+    #chart2 .bb-title { font-size: 17px; font-weight: bold; }
+    #chart3 .bb-title { font-size: 17px; font-weight: bold; }
+    #point-chart .bb-title { font-size: 17px; font-weight: bold; }
+  </style>
+</body>
+</html>
