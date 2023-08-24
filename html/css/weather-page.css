@@ -1,0 +1,328 @@
+  /*----------------------------------------------------------*/
+  /*---------------------- TOP RECTANGLE ------------------------*/
+  /*----------------------------------------------------------*/
+
+  #top-rectangle {
+    margin-top: 70px;
+    padding: 0px;
+    height: 80px;
+    width: 455px;
+  }
+
+  #lightning-1 {
+    position: absolute;
+    left: -20px;
+    top: -14px;
+    z-index: 10;
+  }
+
+  #scrump-weather {
+    transform: translate(-50%, -95px);
+  }
+
+  /*----------------------------------------------------------*/
+  /*------------ RADAR AND TEMP DATA CONTAINER ---------------*/
+  /*----------------------------------------------------------*/
+
+  #forecast-table table, th, td {
+    border: solid 2px #353535;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  #forecast-table table {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: calc(100% - 60px);
+  }
+
+  tr:nth-child(even) {
+      background-color: #fdffbd;
+  }
+
+  #radar-temp-container {
+    height: 700px;
+  }
+
+  #radar-container {
+    position: relative;
+    height: 100%;
+    width: calc(50% - 12px);
+  }
+
+  #forecast-container {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    height: calc(100% - 75px - 34px + 4px);
+    width: calc(50% - 27px - 13px);
+  }
+
+  #radar-container img {
+    position: absolute;
+    display: block;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+    user-select: none;
+    top: 50%;
+    left: calc(50%);
+    transform: translate(-50%, -50%);
+  }
+
+  #scratch-cat {
+    position: absolute;
+    right: 50px;
+    bottom: -1px;
+    height: 60px;
+    z-index: 5;
+  }
+
+  #forecast-message {
+    box-sizing: border-box;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    border: solid 2px #353535;
+  }
+
+  #forecast-message-text {
+    position: relative;
+    font-size: 27px;
+  }
+
+  #radar-button {
+    margin-right: 20px;
+  }
+
+  #dance-cat {
+    position: absolute;
+    left: 130px;
+    top: -74px;
+    height: 40px;
+  }
+
+  /*----------------------------------------------------------*/
+  /*------------------ SUN FAX CONTAINER ----------------------*/
+  /*----------------------------------------------------------*/
+
+  #sun-fax-container {
+    padding: 0px;
+    width: 500px;
+    height: 310px;
+  }
+
+  #sun-fax-container table, th, td {
+    border: solid 2px #353535;
+    border-collapse: collapse;
+    table-layout: fixed;
+    text-align: center;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  #sun-fax-container table {
+    height: 100%;
+    width: 100%;
+  }
+
+  /*----------------------------------------------------------*/
+  /*---------------- CHART DATA CONTAINER --------------------*/
+  /*----------------------------------------------------------*/
+
+  #hourly-box {
+    height: 1010px;
+  }
+
+  #three-d-cat {
+    position: absolute;
+    right: 130px;
+    top: -70px;
+    height: 50px;
+  }
+
+  .chart-container {
+    width: 98.5%;
+  }
+
+  /*----------------------------------------------------------*/
+  /*---------------------- GOES LABEL BOX ---------------------*/
+  /*----------------------------------------------------------*/
+
+  #goes-label {
+    margin: 0;
+    width: 675px;
+    height: 80px;
+  }
+
+  /*----------------------------------------------------------*/
+  /*--------------- GOES SATELLITE CONTAINER -----------------*/
+  /*----------------------------------------------------------*/
+
+  #goes-image-cont {
+    height: 1350px;
+  }
+
+  #goes-images {
+    position: relative;
+    height: 100%;
+  }
+
+  #goes-images img {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+    user-select: none;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #goes-next-button {
+    width: 30px;
+  }
+
+  #goes-back-button {
+    width: 30px;
+  }
+
+  #goes-last-button {
+    width: 70px;
+  }
+
+  #lay-cat {
+    position: absolute;
+    left: 280px;
+    bottom: -1px;
+    height: 40px;
+  }
+
+  /*----------------------------------------------------------*/
+  /*---------------- POINT MODEL DATA CHARTS -----------------*/
+  /*----------------------------------------------------------*/
+
+  #point-chart-box {
+    height: 370px;
+  }
+
+  #white-cat {
+    position: absolute;
+    left: 130px;
+    top: -70px;
+    height: 50px;
+  }
+
+  /*----------------------------------------------------------*/
+  /*---------------- MODEL DATA CONTAINER --------------------*/
+  /*----------------------------------------------------------*/
+
+  #radar-model-cont {
+    height: 1250px;
+    margin-top: 100px;
+  }
+
+  #radar-model-back-button {
+    width: 30px;
+  }
+
+  #radar-model-next-button {
+    width: 30px;
+  }
+
+  #radar-model-background {
+    position: relative;
+    background-color: #ffffff;
+  }
+
+  #radar-model-images {
+    height: 100%;
+  }
+
+  #radar-model-images img {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    display: block;
+    height: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+    user-select: none;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #good-luck {
+    position: absolute;
+    right: 200px;
+    top: -110px;
+    height: 80px;
+  }
+
+  #sleepy-cat {
+    position: absolute;
+    left: 500px;
+    bottom: -5px;
+    height: 40px;
+  }
+
+  /*----------------------------------------------------------*/
+  /*-------------------- SOUNDING LABEL BOX -------------------*/
+  /*----------------------------------------------------------*/
+
+  #sounding-label {
+    margin: 0;
+    width: 555px;
+    height: 80px;
+  }
+
+  /*----------------------------------------------------------*/
+  /*---------------- SOUNDING CONTAINER --------------------*/
+  /*----------------------------------------------------------*/
+
+  #sounding-cont {
+    height: 980px;
+  }
+
+  #sounding {
+    position: relative;
+    height: 100%;
+  }
+
+  #sounding-background {
+    background-color: #ffffff;
+  }
+
+  #sounding img {
+    max-width: 1180px;
+    max-height: 826px;
+    position: absolute;
+    top: 0;
+    display: block;
+    height: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: cover;
+    user-select: none;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  #snail-cat {
+    position: absolute;
+    left: 30px;
+    bottom: -5px;
+    height: 40px;
+  }
+

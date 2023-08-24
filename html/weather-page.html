@@ -77,13 +77,19 @@
               padding: 0px;
               z-index: 1;
             }
+
+            #menu-frame {
+              position: absolute;
+              top: 0;
+            }
+
         </style>
     </head>
     <body>
     <!--Back Button-->
   <div class="back-image">
     <a href="weather.html">
-       <img style="height: 50px;" src="gifs/back.gif">
+       <img id="back-button" style="height: 50px;" src="gifs/back.gif">
      </a>
    </div>
  
@@ -92,13 +98,14 @@
      <audio id="myAudio" src="music/kawai.mp3" preload="auto">
     </audio>
     <a onClick="togglePlay()">
-       <img src="gifs/music-note.gif">
+       <img id="music-button" src="gifs/music-note.gif">
      </a>
    </div>
    <!--Content iFrame-->
         <div style="width: 100%; height: 100%; overflow: hidden;">
             <iframe id="main-frame" frameborder=0 src="weather-page-content.html"></iframe>
         </div>
+
     </body>
     <script>
         let urlParams = new URLSearchParams(window.location.search);

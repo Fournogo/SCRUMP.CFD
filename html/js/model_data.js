@@ -138,9 +138,9 @@ function enableRadarModelButtons() {
         }
     });
     
-    document.getElementById('radar-model-next-button-transparent').style.cursor = "pointer";
+    document.getElementById('radar-model-images').style.cursor = "pointer";
 
-    document.getElementById('radar-model-next-button-transparent').addEventListener("click", function() {
+    document.getElementById('radar-model-images').addEventListener("click", function() {
         if (radar_model_next_is_clicked == true) {
             radar_model_next_is_clicked = false;
         } else if (radar_model_next_is_clicked == false) {
@@ -175,13 +175,15 @@ function enableRadarModelButtons() {
 }
 
 function clearRadarModelLoading() {
-    document.getElementById('radar-model-next-button-transparent').style.zIndex = "1000";
+    document.getElementById('radar-model-images').style.cursor = "pointer";
     document.getElementById('radar-model-loading-text').style.opacity = "0";
+    document.getElementById('radar-model-loading-text').style.zIndex = "-1";
 }
 
 function enableRadarModelLoading() {
-    document.getElementById('radar-model-next-button-transparent').style.zIndex = "-1";
+    document.getElementById('radar-model-images').style.cursor = "auto";
     document.getElementById('radar-model-loading-text').style.opacity = "1";
+    document.getElementById('radar-model-loading-text').style.zIndex = "10";
 }
 
 async function animate_radar_model_async() {

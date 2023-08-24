@@ -27,6 +27,7 @@ async function getCity(cities) {
     animate_radar_model_main();
     set_texts();
     getCurrentUV();
+    setupWindows();
 };
 
 fetch("json/cities.json")

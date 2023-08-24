@@ -7,8 +7,8 @@ let observer_options = {
     threshold: 0.999,
   };
 
-let radar_model_target = document.querySelector('#radar-model-cont');
-let goes_target = document.querySelector('#goes-image-cont');
+let radar_model_target = document.querySelector('#radar-model-images');
+let goes_target = document.querySelector('#goes-images');
 
 let radar_model_observer = new IntersectionObserver(checkRadarModelVis, observer_options);
 let goes_observer = new IntersectionObserver(checkGoesVis, observer_options);
@@ -34,9 +34,15 @@ function checkGoesVis(entries) {
     }
 }
 
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/.test(navigator.userAgent)) {
-    radar_model_observer.observe(radar_model_target)
-    goes_observer.observe(goes_target)
+if (navigator.userAgent.match(/Android/i)
+|| navigator.userAgent.match(/webOS/i)
+|| navigator.userAgent.match(/iPhone/i)
+|| navigator.userAgent.match(/iPad/i)
+|| navigator.userAgent.match(/iPod/i)
+|| navigator.userAgent.match(/BlackBerry/i)
+|| navigator.userAgent.match(/Windows Phone/i)) {
+    radar_model_observer.observe(radar_model_target);
+    goes_observer.observe(goes_target);
 }
 
 //setInterval(checkGoesVis, 1000);

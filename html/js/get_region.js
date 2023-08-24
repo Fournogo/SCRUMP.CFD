@@ -11,6 +11,7 @@ async function getRegion(regions) {
     console.log(city)
     animate_goes_main();
     animate_radar_model_main();
+    setupWindows();
 };
 
 fetch("json/regions.json")

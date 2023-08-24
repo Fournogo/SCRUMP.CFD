@@ -7,8 +7,9 @@
   <meta http-equiv=”CACHE-CONTROL” content=”NO-CACHE”>
   <meta name="robots" content="noindex">
   <title>SCRUMP WEATHER</title>
-  <link rel="stylesheet" type="text/css" href="css/weather.css">
-  <link rel="stylesheet" type="text/css" href="css/national.css">
+  <link rel="stylesheet" type="text/css" href="css/weather-main-classes.css">
+  <link rel="stylesheet" type="text/css" href="css/weather-page.css">
+  <link rel="stylesheet" type="text/css" href="css/regional-page.css">
   <!--<script src="https://d3js.org/d3.v6.min.js"></script>-->
   <script src="js/d3js.js"></script>
   <script src="js/billboard.js"></script>
@@ -32,7 +33,7 @@
   </script>
 
 <div class="yellow-rectangle purple-flash-text" id="warning">
-  <h3 class="center">PARDON OUR MESS WHILE WE FIX SCRUMP WEATHER'S AWFUL CSS..<br>NEW KOOL FEATURES R PLANNED BUT WE HAVE TO FIX THIS FIRST</h3>
+  <h3 class="center">NEW FEATURES COMING SOON:<br>ADJUSTABLE GUI, MORE SATELLITES, MORE MODEL DATA!!</h3>
 </div>
 
   <!--SCRUMP WEATHER logo at top of page-->
@@ -45,13 +46,19 @@
   <div class="yellow-rectangle" id="goes-label" style="line-height: 77px;"><h3 class="center" style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">THIS AIN'T YA GRANDMA'S SATELLITE!!!</h3></div>
 
   <!--Satellite Imagery Box-->
-  <div class="yellow-rectangle" id="goes-image-cont">
+  <div class="overall-container" id="goes-image-cont">
+    <div class="menu-bar">
+      <h4 class="program-text">SPY_SAT.EXE</h4>
+      <div onclick="closeWindow(this)" class="small-button close-button"><img class="center" src="png/close.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    </div>
+  <div class="yellow-rectangle">
 
     <img id="lay-cat" src="gifs/laycat.gif">
 
     <div class="main-content inset-image">
       <div id="goes-images"></div>
-      <div class="hidden-button" id="goes-next-button-transparent" style="z-index: -1;"></div>
       <div class="loading-box yellow-rectangle center" id="goes-loading-text">
         <h3 class="loading-text">IF NYANCAT IS MOVING THEN ITS WORKING JUST BE PATIENT<br><br>IF WE DON'T LOAD THIS RIGHT IT'LL GIVE YOU A SEIZURE<br></h3>
         <h2 class="loading-text" id="goes-loading-percent">LOADING: </h2>
@@ -92,26 +99,32 @@
       <option value="3">Previous 3 hours</option>
       <option value="4">Previous 4 hours</option>
       <option value="8" selected="selected">Previous 8 hours</option>
-      <!--<option value="16">Previous 16 hours</option>
+      <option value="12">Previous 12 hours</option>
       <option value="24">Previous 24 hours</option>
-      <option value="48">Previous 48 hours</option>-->
+      <option value="48">Previous 48 hours</option>
     </select>
     <div class="toolbar-element right purple-flash-text">
-      <h3 id="goes-text">uhhhhhh</h3>
+      <h3 id="goes-text">DOESN'T WORK RN WE'RE TESTING THINGS</h3>
     </div>
     </div>
   </div>
-    
+  </div>
     <!--RADAR MODEL LABEL-->
     <div class="yellow-rectangle" id="sounding-label" style="line-height: 77px;"><h3 class="center" style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">HEY SIRI WHAT'S A RADIOSONDE???</h3></div>
 
     <!--RADAR MODEL BOX-->
-    <div class="yellow-rectangle" id="radar-model-cont">
+    <div class="overall-container" id="radar-model-cont">
+      <div class="menu-bar">
+        <h4 class="program-text">MAGIC.EXE</h4>
+        <div onclick="closeWindow(this)" class="small-button close-button"><img class="center" src="png/close.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
+      </div>
+    <div class="yellow-rectangle">
       <img id="sleepy-cat" src="gifs/sleepy-cat.gif">
       <img id="good-luck" src="gifs/good-luck.gif">
       <div class="main-content inset-image" id="radar-model-background">
         <div id="radar-model-images"></div>
-        <div class="hidden-button" id="radar-model-next-button-transparent" style="z-index: -1;"></div>
         <div class="loading-box yellow-rectangle center" id="radar-model-loading-text">
           <h3 class="loading-text">IF NYANCAT IS MOVING THEN ITS WORKING JUST BE PATIENT<br><br>TRUST ME THIS TAKES A LITTLE WHILE OUR INTERNET IS SLOW<br></h3>
           <h2 class="loading-text" id="model-data-loading-percent">LOADING: </h2>
@@ -148,10 +161,11 @@
       <option value="refd" selected="selected">Reflectivity</option>
     </select> 
     <div class="toolbar-element right">
-      <h3 class="purple-flash-text" id="radar-model-text">uhhhhhh</h3>
+      <h3 class="purple-flash-text" id="radar-model-text">WOW SO MANY PHYSICS</h3>
     </div>
     </div>
     </div>
+  </div>
 
   <!--Thank you text-->
   <a href="gallery.html"><img src="gifs/banr_oprah.gif"></a>
@@ -167,6 +181,7 @@
   <script src="js/model_data.js"></script>
   <script src="js/get_region.js"></script>
   <script src="js/mobile_animation_fix.js"></script>
+  <script src="js/windows.js"></script>
 
   <!--Extra chart styling for the hourly graph-->
   <style>

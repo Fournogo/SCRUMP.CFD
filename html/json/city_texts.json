@@ -1,25 +1,25 @@
 {
    "tx": {
       "fort-worth": {
-         "radar_temp": "I DIDN'T EVEN KNOW I COULD SWEAT THERE!!!..!!",
+         "radar_temp": "I CAN'T TAKE IT ANYMORE!!!..!!",
          "goes_satellite": "LOOK AT THOSE OUTFLOW WAVEZ",
          "radar_model": "TESTING NEW FEATURES HERE RN SORRY IF BROKE",
          "sounding": "ANOTHER DAY ANOTHER CHANCE OF STORMS"
       },
       "dallas": {
-         "radar_temp": "I DIDN'T EVEN KNOW I COULD SWEAT THERE !!!..!!",
+         "radar_temp": "I CAN'T TAKE IT ANYMORE !!!..!!",
          "goes_satellite": "LOOK AT THOSE OUTFLOW WAVEZ",
          "radar_model": "TESTING NEW FEATURES HERE RN SORRY IF BROKE",
          "sounding": "ANOTHER DAY ANOTHER CHANCE OF STORMS"
       },
       "austin": {
-         "radar_temp": "I DIDN'T EVEN KNOW I COULD SWEAT THERE!!!..!!",
+         "radar_temp": "I CAN'T TAKE IT ANYMORE!!!..!!",
          "goes_satellite": "LOOK AT THOSE OUTFLOW WAVEZ",
          "radar_model": "TESTING NEW FEATURES HERE RN SORRY IF BROKE",
          "sounding": "ANOTHER DAY ANOTHER CHANCE OF STORMS"
       },
       "houston": {
-         "radar_temp": "I DIDN'T EVEN KNOW I COULD SWEAT THERE!!!..!!",
+         "radar_temp": "I CAN'T TAKE IT ANYMORE!!!..!!",
          "goes_satellite": "LOOK AT THOSE OUTFLOW WAVEZ",
          "radar_model": "TESTING NEW FEATURES HERE RN SORRY IF BROKE",
          "sounding": "ANOTHER DAY ANOTHER CHANCE OF STORMS"
@@ -43,7 +43,7 @@
    },
    "wa": {
       "seattle": {
-         "radar_temp": "AHHH LIFE IS GOOD!!!..!!",
+         "radar_temp": "SMOKE?? HUMIDITY?!!!..!!",
          "goes_satellite": "SO COMPLEX",
          "radar_model": "TESTING NEW FEATURES HERE RN SORRY IF BROKE",
          "sounding": "THE GOTH GORLS AREN'T GONNA LIKE THIS!"
@@ -67,10 +67,10 @@
    },
    "nv": {
       "reno": {
-         "radar_temp": "NOTHING TO SEE HERE!!!..!!",
+         "radar_temp": "HURRI-RAIN!!!..!!",
          "goes_satellite": "OOOOO MOUNTAINS",
          "radar_model": "TESTING NEW FEATURES HERE RN SORRY IF BROKE",
-         "sounding": "BASICALLY MONSOON SEASON! HAHA JK!!"
+         "sounding": "IS THAT MOISTURE???"
       }
    }
    ,

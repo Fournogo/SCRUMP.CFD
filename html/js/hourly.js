@@ -356,7 +356,6 @@ function EPA2Date (EPAdate) {
         hour = EPAdate.slice(12,14);
     }
     let date = new Date(year, month, day, hour)
-    console.log('date ' + date)
     return date
 }
 

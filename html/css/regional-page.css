@@ -1,0 +1,12 @@
+#goes-image-cont {
+    height: 868px;
+}
+#radar-model-cont {
+    height: 1079px;
+}
+#goes-loading-text, #radar-model-loading-text {
+    transform: translate(-50%, -60%);
+}
+#goes-label {
+    margin-top: 40px;
+}

@@ -7,7 +7,7 @@ function radar() {
 
 let radar_paused = false;
 
-let radar_images = document.getElementById('radar-holder').children;
+let radar_images = document.getElementById('radar-container').children;
 
 document.getElementById('radar-button').addEventListener("click", function() {
     if (radar_paused == false) {

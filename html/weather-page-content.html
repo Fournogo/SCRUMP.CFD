@@ -7,7 +7,8 @@
   <meta http-equiv=”CACHE-CONTROL” content=”NO-CACHE”>
   <meta name="robots" content="noindex">
   <title>SCRUMP WEATHER</title>
-  <link rel="stylesheet" type="text/css" href="css/weather.css">
+  <link rel="stylesheet" type="text/css" href="css/weather-main-classes.css">
+  <link rel="stylesheet" type="text/css" href="css/weather-page.css">
   <!--<script src="https://d3js.org/d3.v6.min.js"></script>-->
   <script src="js/d3js.js"></script>
   <script src="js/billboard.js"></script>
@@ -30,7 +31,7 @@
     };
   </script>
   <div class="yellow-rectangle purple-flash-text" id="warning">
-    <h3 class="center">PARDON OUR MESS WHILE WE FIX SCRUMP WEATHER'S AWFUL CSS..<br>NEW KOOL FEATURES R PLANNED BUT WE HAVE TO FIX THIS FIRST</h3>
+    <h3 class="center">NEW FEATURES COMING SOON:<br>ADJUSTABLE GUI, MORE SATELLITES, MORE MODEL DATA!!</h3>
   </div>
   <!--/*----------------------------------------------------------*/
   /*---------------------- TOP RECTANGLE ------------------------*/
@@ -42,21 +43,28 @@
   <!-- /*----------------------------------------------------------*/
   /*------------ RADAR AND TEMP DATA CONTAINER ---------------*/
   /*----------------------------------------------------------*/-->
-  <div class="yellow-rectangle" id="radar-temp-container">
+  <div class="overall-container" id="radar-temp-container">
+  <div class="menu-bar">
+    <h4 class="program-text">FUTURE_PREDICTOR.EXE</h4>
+    <div onclick="closeWindow(this)" class="small-button close-button"><img class="center" src="png/close.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
+ </div>
+  <div class="yellow-rectangle">
   <img id="scratch-cat" src="gifs/scratchcat.gif">
   <img id="dance-cat" src="gifs/dancecat.gif">
-    <div class="main-content">
-      <div class="inset-image left-half" id="radar-container">
+  <div class="main-content">
+      <div class="inset-image" id="radar-container">
         <img class="radar-overlap" id="radar-loop" style="opacity: 1;">
         <img class="radar-overlap" id="radar-latest" style="opacity: 0;">
       </div>
-      <div class="right-half" id="forecast-container">
+      <div id="forecast-container">
        <div id="forecast-message">
         <h3 class="purple-flash-text center" id="forecast-message-text">UHHHHHH WEATHER FORECAST</h3>
         </div>
         <!--Daily forecast table-->
         <div id="forecast-table">
-        <table style="width: 100%;">
+        <table>
           <tr>
             <th>Timeframe</th>
             <th>Temp</th>
@@ -167,12 +175,20 @@
     </div>
   </div>
   </div>
+</div>
 
     <!--  /*----------------------------------------------------------*/
   /*------------------ SUN FAX CONTAINER ----------------------*/
   /*----------------------------------------------------------*/-->
-    <div class="yellow-rectangle" id="sun-fax-container">    
-      <table style="width: 100%; height: 100%;">
+  <div class="overall-container" id="sun-fax-container">
+    <div class="menu-bar">
+      <h4 class="program-text">GIMME_SUN_FAX.EXE</h4>
+      <div onclick="closeWindow(this)" class="small-button close-button"><img class="center" src="png/close.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    </div>
+    <div class="yellow-rectangle">    
+      <table>
       <tr>
         <th class="purple-flash-text" colspan="2">TODAY'S SUN FAX</th>
       </tr>
@@ -201,31 +217,43 @@
       </tr>
       </table>
     </div>
-
+  </div>
   <!--  /*----------------------------------------------------------*/
   /*---------------- CHART DATA CONTAINER --------------------*/
   /*----------------------------------------------------------*/-->
-  <div class="yellow-rectangle" id="hourly-box">
+  <div class="overall-container" id="hourly-box">
+    <div class="menu-bar">
+      <h4 class="program-text">HOURLY_CHART.PRG</h4>
+      <div onclick="closeWindow(this)" class="small-button close-button"><img class="center" src="png/close.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    </div>
+  <div class="yellow-rectangle">
     <img id="three-d-cat" src="gifs/3d-sitting-cat.gif">
     <div class="chart-container"><div id="chart"></div></div>
     <div class="chart-container"><div id="chart2"></div></div>
     <div class="chart-container"><div id="chart3"></div></div>
+  </div>
   </div>
   
   <!--  /*----------------------------------------------------------*/
   /*---------------------- GOES LABEL BOX ---------------------*/
   /*----------------------------------------------------------*/-->
   <div class="yellow-rectangle" id="goes-label" style="line-height: 77px;"><h3 class="center" style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">THIS AIN'T YA GRANDMA'S SATELLITE!!!</h3></div>
-
   <!--  /*----------------------------------------------------------*/
   /*--------------- GOES SATELLITE CONTAINER -----------------*/
   /*----------------------------------------------------------*/-->
-  <div class="yellow-rectangle" id="goes-image-cont">
+  <div class="overall-container" id="goes-image-cont">
+    <div class="menu-bar">
+      <h4 class="program-text">SPY_SAT.EXE</h4>
+      <div onclick="closeWindow(this)" class="small-button close-button"><img class="center" src="png/close.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    </div>
+  <div class="yellow-rectangle">
     <img id="lay-cat" src="gifs/laycat.gif">
-
     <div class="main-content inset-image">
       <div id="goes-images"></div>
-      <div class="hidden-button" id="goes-next-button-transparent" style="z-index: -1;"></div>
       <div class="loading-box yellow-rectangle center" id="goes-loading-text">
         <h3 class="loading-text">IF NYANCAT IS MOVING THEN ITS WORKING JUST BE PATIENT<br><br>IF WE DON'T LOAD THIS RIGHT IT'LL GIVE YOU A SEIZURE<br></h3>
         <h2 class="loading-text" id="goes-loading-percent">LOADING: </h2>
@@ -238,7 +266,6 @@
       </div>
       </div>
     </div>
-
     <div class="toolbar">
     <div class="button" id="goes-pause-button">
       <img src="png/pause.png">
@@ -266,22 +293,31 @@
       <option value="3">Previous 3 hours</option>
       <option value="4">Previous 4 hours</option>
       <option value="8" selected="selected">Previous 8 hours</option>
-      <!--<option value="16">Previous 16 hours</option>
+      <option value="12">Previous 12 hours</option>
       <option value="24">Previous 24 hours</option>
-      <option value="48">Previous 48 hours</option>-->
+      <option value="48">Previous 48 hours</option>
     </select>
     <div class="toolbar-element right purple-flash-text">
       <h3 id="goes-text">uhhhhhh</h3>
     </div>
     </div>
   </div>
+  </div>
 
   <!--/*----------------------------------------------------------*/
   /*---------------- POINT MODEL DATA CHARTS -----------------*/
   /*----------------------------------------------------------*/-->
-  <div class="yellow-rectangle" id="point-chart-box">
+  <div class="overall-container" id="point-chart-box">
+    <div class="menu-bar">
+      <h4 class="program-text">CLOUDZ.?</h4>
+      <div onclick="closeWindow(this)" class="small-button close-button"><img class="center" src="png/close.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    </div>
+  <div class="yellow-rectangle">
     <img id="white-cat" src="gifs/whitey.gif">
     <div class="chart-container"><div id="point-chart"></div></div>
+  </div>
   </div>
 
   <!--RADAR MODEL LABEL-->
@@ -290,12 +326,18 @@
 <!--/*----------------------------------------------------------*/
   /*---------------- MODEL DATA CONTAINER --------------------*/
   /*----------------------------------------------------------*/-->
-<div class="yellow-rectangle" id="radar-model-cont">
+  <div class="overall-container" id="radar-model-cont">
+    <div class="menu-bar">
+      <h4 class="program-text">MAGIC.EXE</h4>
+      <div onclick="closeWindow(this)" class="small-button close-button"><img class="center" src="png/close.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    </div>
+<div class="yellow-rectangle">
   <img id="sleepy-cat" src="gifs/sleepy-cat.gif">
   <img id="good-luck" src="gifs/good-luck.gif">
   <div class="main-content inset-image" id="radar-model-background">
     <div id="radar-model-images"></div>
-    <div class="hidden-button" id="radar-model-next-button-transparent" style="z-index: -1;"></div>
     <div class="loading-box yellow-rectangle center" id="radar-model-loading-text">
       <h3 class="loading-text">IF NYANCAT IS MOVING THEN ITS WORKING JUST BE PATIENT<br><br>TRUST ME THIS TAKES A LITTLE WHILE OUR INTERNET IS SLOW<br></h3>
       <h2 class="loading-text" id="model-data-loading-percent">LOADING: </h2>
@@ -307,7 +349,6 @@
       </div>
       </div>
     </div>
-    
   </div>
   
   <div class="toolbar">
@@ -337,16 +378,26 @@
 </div>
 </div>
 </div>
+</div>
 
 <!--/*----------------------------------------------------------*/
 /*-------------------- SOUNDING LABEL BOX -------------------*/
 /*----------------------------------------------------------*/-->
+
 <div class="yellow-rectangle" id="sounding-label" style="line-height: 77px;"><h3 class="center" style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">HEY SIRI WHAT'S A RADIOSONDE???</h3></div>
 
   <!--/*----------------------------------------------------------*/
   /*---------------- SOUNDING CONTAINER --------------------*/
   /*----------------------------------------------------------*/-->
-  <div class="yellow-rectangle" id="sounding-cont">
+
+  <div class="overall-container" id="sounding-cont">
+    <div class="menu-bar">
+      <h4 class="program-text">RADIOSONDE.EXE</h4>
+      <div onclick="closeWindow(this)" class="small-button close-button"><img class="center" src="png/close.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    </div>
+  <div class="yellow-rectangle">
     <div class="main-content inset-image" id="sounding-background">
     <div id="sounding"></div>
   </div>
@@ -356,6 +407,7 @@
     </div> 
     </div>
     <img id="snail-cat" src="gifs/snailing-cat.gif">
+  </div>
   </div>
 
   <!--Thank you text-->
@@ -379,6 +431,7 @@
   <script src="js/model_data.js"></script>
   <script src="js/get_city.js"></script>
   <script src="js/mobile_animation_fix.js"></script>
+  <script src="js/windows.js"></script>
 
   <!--Extra chart styling for the hourly graph-->
   <style>
