@@ -176,7 +176,7 @@ def generateLocalPlot(params):
         fig.savefig(final_path, edgecolor='black', dpi=120, transparent=True)
         
         #Add the path to the saved image to the list of paths to be saved
-        link_list.append('goes/hrrr_data/operational/' + product + '_' + state + '_' + str(step) + '.png')
+        link_list.append('goes/model_data/operational/' + product + '_' + state + '_' + str(step) + '.png')
         
         #Clear the whole figure from memory or risk exploding your computer
         plt.clf() #SUPER DUPER IMPORTANT

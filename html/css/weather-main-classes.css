@@ -45,20 +45,36 @@ body {
     border-left: solid 3px #353535;
     border-bottom: solid 3px #353535;
     border-right: solid 3px #ffffff;
-    height: calc(100% - 30px);
+    height: 100%;
     width: 100%;
     box-sizing: border-box; 
     z-index: 5;
   }
 
-  .overall-container {
+  .inside-stuff {
     position: relative;
     top: 0;
+    height: calc(100% - 30px);
+    z-index: 5;
+  }
+
+  .overall-container {
+    position: inherit;
+    top: 0;
     width: 1264px;
-    height: 1200px;
+    height: 100%;
+    margin: 0 auto;
+    box-sizing: border-box; 
+    right: 0;
+  }
+
+  .vertical-container {
+    position: relative;
+    width: 100%;
+    top: 0;
     margin-top: 40px;
     margin-bottom: 40px;
-    box-sizing: border-box; 
+    height: 1200px;
   }
 
   .inset-image {
@@ -84,6 +100,7 @@ body {
     margin-left: 25px;
     margin-right: 25px;
     display: block;
+    z-index: 5;
   }
 
   .toolbar-element {
@@ -142,7 +159,6 @@ body {
     z-index: 500;
     width: 508px;
     height: 508px;
-    transform: translate(-50%, -80%);
   }
 
   .loading-bar-background {
@@ -229,6 +245,13 @@ body {
 
   .min-button {
     right: 50px;
+  }
+
+  .model-menu {
+    position: absolute;
+    left: 0;
+    z-index: 1000;
+    box-sizing: border-box;
   }
 
   /*----------------------------------------------------------*/

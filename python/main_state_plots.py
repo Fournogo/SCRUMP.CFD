@@ -23,7 +23,8 @@ if __name__ == '__main__':
     ###################
     forecast_hours = 48 #NUMBER OF FORECAST HOURS
     ###################
-    path = '/home/scrump/containers/website/html/goes/hrrr_data/' #PATH TO SAVE IMAGES
+    path = '/home/scrump/containers/website/html/goes/model_data/' #PATH TO SAVE IMAGES
+    json_path = '/home/scrump/containers/website/html/goes/model_json/'
     json_filename = 'state-model-images' #FILENAME FOR JSON CONTAINING IMAGE PATHS
     usa_cities = pd.read_csv("/home/scrump/containers/website/python/model_files/USA_Major_Cities.csv")
 
@@ -113,7 +114,7 @@ if __name__ == '__main__':
 
     print(state_dict)
     print('Writing JSON File...')
-    writeJson(state_dict, path, json_filename)
+    writeJson(state_dict, json_path, json_filename)
     print('Replacing operational files...')
     renameFiles(path)
     print('Removing temporary files...')

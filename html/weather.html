@@ -44,22 +44,6 @@ h3 {
   top: 30%;
   }
 }
-.rainbow-text-loop {
-  position: relative;
-  font-size: 1.5rem;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  text-shadow: 2px 2px 2px #000000;
-  top: 6%;
-  text-align: center;
-  animation: rainbow 5s infinite; 
-}
-@keyframes rainbow {
-    0%{color: rgb(252, 169, 252);}
-    50%{color: rgb(210, 36, 210);} 
-    100%{color: rgb(252, 169, 252);}
-  }
 .nancy {
   position: absolute;
   top: 85%;
@@ -78,16 +62,27 @@ h3 {
     cursor: pointer;
   }
 #main-text {
-  top: 200px;
+  margin: 20px;
+  text-align: center;
 }
 #links {
   position: relative; 
-  top: 11%; 
+  top: 0; 
   text-align: center;
 }
 #links a {
   z-index: 2;
 }
+@keyframes purple-flash {
+    0%{color: rgb(252, 169, 252);}
+    50%{color: rgb(210, 36, 210);} 
+    100%{color: rgb(252, 169, 252);}
+  }
+  
+  .purple-flash-text {
+    text-shadow: 2px 2px 2px #000000; 
+    animation: purple-flash 3s infinite;
+  }
 </style>
 </head>
 <body>
@@ -106,7 +101,7 @@ h3 {
   </div>
   <div class="center-rectangle">
   <div class="rainbow-text-loop">
-    <h3 id="main-text">CHOOSE FROM OUR ORGANIZED LIST OF GLOBAL CITIES!!!</h3>
+    <h3 class="purple-flash-text" id="main-text">CHOOSE FROM OUR ORGANIZED LIST OF GLOBAL CITIES!!!</h3>
   </div>
   <div id="links">
   <a href="weather-page.html?city=austin"><u><h3>AUSTIN</h3></u></a>
@@ -120,7 +115,7 @@ h3 {
   <a href="weather-page.html?city=chicago"><u><h3>CHICAGO</h3></u></a>
   <a href="weather-page.html?city=minneapolis"><u><h3>MINNEAPOLIS</h3></u></a>
   <a href="weather-page.html?city=seattle"><u><h3>SEATTLE</h3></u></a>
-  <a href="regional-page.html?region=usa"><u><h3>NATIONAL</h3></u></a>
+  <a href="regional-page.html?region=usa"><u><h3 class="purple-flash-text">NATIONAL</h3></u></a>
   </div>
 </div>
   <div class="nancy">

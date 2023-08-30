@@ -49,7 +49,7 @@ def main():
     for city in json_data['cities']:
         coordinates = city['coordinates']
         city_name = city['city']
-        url = 'https://digital.mdl.nws.noaa.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=' + str(coordinates[0]) + '&lon=' + str(coordinates[1]) +'&product=time-series&sky=sky'
+        url = 'https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=' + str(coordinates[0]) + '&lon=' + str(coordinates[1]) +'&product=time-series&sky=sky'
         data_values = getLatestValues(url)
         final_data.update({city_name: data_values})
 

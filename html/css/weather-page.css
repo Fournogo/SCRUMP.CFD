@@ -24,6 +24,10 @@
   /*------------ RADAR AND TEMP DATA CONTAINER ---------------*/
   /*----------------------------------------------------------*/
 
+  #radar-vert {
+    height: 700px;
+  }
+
   #forecast-table table, th, td {
     border: solid 2px #353535;
     border-collapse: collapse;
@@ -44,10 +48,6 @@
       background-color: #fdffbd;
   }
 
-  #radar-temp-container {
-    height: 700px;
-  }
-
   #radar-container {
     position: relative;
     height: 100%;
@@ -65,10 +65,11 @@
   #radar-container img {
     position: absolute;
     display: block;
+    height: 100%;
     width: 100%;
+    object-fit: contain;
     margin-left: auto;
     margin-right: auto;
-    object-fit: cover;
     user-select: none;
     top: 50%;
     left: calc(50%);
@@ -112,8 +113,10 @@
   /*----------------------------------------------------------*/
 
   #sun-fax-container {
-    padding: 0px;
     width: 500px;
+  }
+
+  #sun-fax-vert {
     height: 310px;
   }
 
@@ -135,7 +138,7 @@
   /*---------------- CHART DATA CONTAINER --------------------*/
   /*----------------------------------------------------------*/
 
-  #hourly-box {
+  #hourly-vert {
     height: 1010px;
   }
 
@@ -164,7 +167,7 @@
   /*--------------- GOES SATELLITE CONTAINER -----------------*/
   /*----------------------------------------------------------*/
 
-  #goes-image-cont {
+  #goes-vert {
     height: 1350px;
   }
 
@@ -177,11 +180,11 @@
     position: absolute;
     height: 100%;
     width: 100%;
+    object-fit: contain;
     top: 0;
     display: block;
     margin-left: auto;
     margin-right: auto;
-    object-fit: contain;
     user-select: none;
     left: 50%;
     transform: translateX(-50%);
@@ -206,11 +209,15 @@
     height: 40px;
   }
 
+  #model-data-selector {
+    margin: 5px;
+  }
+
   /*----------------------------------------------------------*/
   /*---------------- POINT MODEL DATA CHARTS -----------------*/
   /*----------------------------------------------------------*/
 
-  #point-chart-box {
+  #point-chart-vert {
     height: 370px;
   }
 
@@ -225,9 +232,36 @@
   /*---------------- MODEL DATA CONTAINER --------------------*/
   /*----------------------------------------------------------*/
 
-  #radar-model-cont {
+  #radar-model-vert {
     height: 1250px;
     margin-top: 100px;
+  }
+
+  #radar-model-cont {
+    right: 0;
+  }
+
+  #model-menu {
+    position: absolute;
+    width: 25%;
+    height: 100%;
+    display: none;
+    top: 0;
+    background-color: #b6a6b5;
+    border-top: solid 2px #fdd9ff;
+    border-left: solid 2px #736b74;
+    border-bottom: solid 2px #736b74;
+    border-right: solid 2px #fdd9ff;
+  }
+
+  #browser-text {
+    top: 13px;
+    text-align: center;
+    font-size: 17px;
+  }
+
+  #toggle-model-browser {
+    width: 100px;
   }
 
   #radar-model-back-button {
@@ -290,7 +324,7 @@
   /*---------------- SOUNDING CONTAINER --------------------*/
   /*----------------------------------------------------------*/
 
-  #sounding-cont {
+  #sounding-vert {
     height: 980px;
   }
 

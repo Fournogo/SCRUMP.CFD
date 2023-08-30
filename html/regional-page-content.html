@@ -33,7 +33,7 @@
   </script>
 
 <div class="yellow-rectangle purple-flash-text" id="warning">
-  <h3 class="center">NEW FEATURES COMING SOON:<br>ADJUSTABLE GUI, MORE SATELLITES, MORE MODEL DATA!!</h3>
+  <h3 class="center">NEW FEATURES COMING SOON:<br>MODEL BROWSER FOR MORE MODEL DATA! GOES WEST!</h3>
 </div>
 
   <!--SCRUMP WEATHER logo at top of page-->
@@ -46,6 +46,7 @@
   <div class="yellow-rectangle" id="goes-label" style="line-height: 77px;"><h3 class="center" style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">THIS AIN'T YA GRANDMA'S SATELLITE!!!</h3></div>
 
   <!--Satellite Imagery Box-->
+  <div class="vertical-container" id="goes-vert">
   <div class="overall-container" id="goes-image-cont">
     <div class="menu-bar">
       <h4 class="program-text">SPY_SAT.EXE</h4>
@@ -53,6 +54,7 @@
     <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
     <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
     </div>
+    <div class="inside-stuff">
   <div class="yellow-rectangle">
 
     <img id="lay-cat" src="gifs/laycat.gif">
@@ -104,22 +106,36 @@
       <option value="48">Previous 48 hours</option>
     </select>
     <div class="toolbar-element right purple-flash-text">
-      <h3 id="goes-text">DOESN'T WORK RN WE'RE TESTING THINGS</h3>
+      <h3 id="goes-text">MIGHT BREAK WE'RE TESTING</h3>
     </div>
     </div>
   </div>
   </div>
+</div>
+</div>
     <!--RADAR MODEL LABEL-->
     <div class="yellow-rectangle" id="sounding-label" style="line-height: 77px;"><h3 class="center" style="text-align: center; animation: rainbow 3s infinite; text-shadow: 2px 2px 2px #000000;">HEY SIRI WHAT'S A RADIOSONDE???</h3></div>
 
     <!--RADAR MODEL BOX-->
+    <div class="vertical-container" id="radar-model-vert">
+    <div class="model-menu" id="model-menu">
+      <h3 class="purple-flash-text" style="margin: 5px;">FORECAST MODEL BROWSER</h3>
+      <br>
+      <h4 class="program-text">FORECAST PRODUCT SELECTOR</h3>
+        <select class="toolbar-element" id="model-data-selector">
+          <option value="t2m">Temperature</option>
+          <option value="refd" selected="selected">Reflectivity</option>
+        </select> 
+      <h3 class="purple-flash-text" style="margin: 5px; position: absolute; bottom: 0px;">WORK IN PROGRESS!</h3>
+    </div>
     <div class="overall-container" id="radar-model-cont">
       <div class="menu-bar">
         <h4 class="program-text">MAGIC.EXE</h4>
         <div onclick="closeWindow(this)" class="small-button close-button"><img class="center" src="png/close.png" style="position: absolute; height: 16px; width: 16px"></div>
-    <div onclick="minMaxWindow(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
-    <div onclick="minimizeWindow(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
-      </div>
+    <div onclick="minMaxModel(this)" class="small-button win-max-button"><img class="center" src="png/maximize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    <div onclick="minModel(this)" class="small-button min-button"><img class="center" src="png/minimize.png" style="position: absolute; height: 16px; width: 16px"></div>
+    </div>
+    <div class="inside-stuff" id="model-inside">
     <div class="yellow-rectangle">
       <img id="sleepy-cat" src="gifs/sleepy-cat.gif">
       <img id="good-luck" src="gifs/good-luck.gif">
@@ -137,6 +153,7 @@
           </div>
         </div>
       </div>
+      </div>
       
       <div class="toolbar">
       <div class="button" id="radar-model-back-button">
@@ -148,6 +165,9 @@
     <div class="button" id="radar-model-next-button">
       <img src="png/next.png">
     </div>
+    <div class="button" onclick="openCloseBrowser(this)" id="toggle-model-browser">
+      <h3 class="purple-flash-text center" id="browser-text">BROWSER</h3>
+    </div>
     <select class="toolbar-element" id="radar-model-speed-select">
       <option value="5">5 fps (4500x speed)</option>
       <option value="10" selected="selected">10 fps (9000x speed)</option>
@@ -156,15 +176,12 @@
       <option value="25">25 fps (22500x speed)</option>
       <option value="30">30 fps (27000x speed)</option>
     </select> 
-    <select class="toolbar-element" id="model-data-selector">
-      <option value="t2m">Temperature</option>
-      <option value="refd" selected="selected">Reflectivity</option>
-    </select> 
     <div class="toolbar-element right">
       <h3 class="purple-flash-text" id="radar-model-text">WOW SO MANY PHYSICS</h3>
     </div>
     </div>
     </div>
+  </div>
   </div>
 
   <!--Thank you text-->

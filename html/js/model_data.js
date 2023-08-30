@@ -10,7 +10,7 @@ let radar_model_pause_is_clicked = false;
 let radar_model_back_is_clicked = false;
 let radar_model_next_is_clicked = false;
 
-let path_to_radar_model = '../goes/hrrr_data/operational/state-model-images.json'
+let path_to_radar_model = '../goes/model_json/state-model-images.json'
 
 let next_radar_model_animation_index = radar_model_animation_index;
 
