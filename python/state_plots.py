@@ -8,6 +8,8 @@ import matplotlib.image as image
 from cartopy import crs as ccrs, feature as cfeature
 
 import numpy as np
+import pandas as pd
+import re
 
 #  Suppress warnings issued by Cartopy when downloading data files
 warnings.filterwarnings('ignore')
@@ -17,6 +19,15 @@ import pytz
 from adjustText import adjust_text
 
 from national_plots import generateNationalPlot
+
+def extract_number(string):
+    import re
+    match = re.search(r'\d{12}', string)
+    
+    if match:
+        return int(match.group())
+    else:
+        return 0
 
 # PLOTTING FUNCTION FOR RADAR DATA
 def generateLocalPlot(params):
@@ -38,14 +49,18 @@ def generateLocalPlot(params):
     latS = params['latS']
     latN = params['latN']
     ds = params['ds']
-
+    model_name = params['model_name']
+    product_name = params['product_name']
     sample_points = params['sample_points']
     data_unit = params['data_unit']
     cmap = params['cmap'] 
-    product = params['product']
+    forecast = params['forecast']
     data_min = params['data_min']
     data_max = params['data_max']
     data_label = params['data_label']
+    lat_index = params['lat_index']
+    lon_index = params['lon_index']
+    forecast_range = params['forecast_range']
 
     #Standard parameters
     path = params['path']
@@ -58,11 +73,18 @@ def generateLocalPlot(params):
     #Main loop to go through each forecast hour
     for step in range(ds.step.size):
         
+        try:
+            fxx = forecast_range[step]
+        except:
+            fxx = step
+
         #Get the local time zone for the graph
-        time = ds['valid_time'].to_index()
+        time = ds['valid_time'].isel(step=step).values
+        time = pd.Timestamp(time)
         time_utc = time.tz_localize(pytz.UTC) # GRAPH SPECIFIC
         local_tz = pytz.timezone(tz)
         time_local = time_utc.tz_convert(local_tz)
+        time_string = time.strftime('%Y%m%d%H%M')
 
         #Set size of overall figure and define subplot for model data
         fig = plt.figure(figsize=(10,9))
@@ -86,7 +108,7 @@ def generateLocalPlot(params):
         ax.set_aspect('auto')
         
         #Add map background features
-        ax.coastlines(resolution=res, color='black') # GRAPH SPECIFIC
+        ax.coastlines(resolution=res, color='gray') # GRAPH SPECIFIC
         ax.add_feature(cfeature.STATES, linewidth=0.3, edgecolor='brown', zorder=3) # GRAPH SPECIFIC
         ax.add_feature(cfeature.LAND, zorder=1) # GRAPH SPECIFIC
         ax.add_feature(cfeature.LAKES, zorder=1) # GRAPH SPECIFIC
@@ -121,27 +143,24 @@ def generateLocalPlot(params):
 
                 loc = np.where(absolute_difference == np.min(absolute_difference)) # GRAPH SPECIFIC
                 
-                sample_point_value = float(ds.isel(step=step).sel(x=loc[1], y=loc[0])[product][0][0]) # GRAPH SPECIFIC
+                sample_point_value = float(ds.isel(step=step, **{lat_index: loc[0][0]}, **{lon_index: loc[1][0]})[forecast]) # GRAPH SPECIFIC
                 sample_point_value = round(sample_point_value,1) # GRAPH SPECIFIC
                 data_point_text = "\n" + str(sample_point_value) + " " + data_unit
 
             #Add the city to the list of labels if its on the map but not too close to the edge
-            if lonW+3 < x < lonE-3 and latS+3 < y < latN-3:
-                texts.append(plt.text(x=USA_cities.iloc[index].X, y=USA_cities.iloc[index].Y,
+            if lonW+1 < x < lonE-1 and latS+1 < y < latN-1:
+                texts.append(ax.text(x=x, y=y,
                             s=USA_cities.iloc[index].NAME + data_point_text, # GRAPH SPECIFIC,
                             color="black",
                             fontsize=8,
                             #COMMENT ON LINUX **csfont,
                             transform=projPC))
-        
-        #Adjust the labels so they don't horribly overlap
-        #adjust_text(texts, on_basemap=True)
 
         #ADD MODEL DATA TO MAP DEFINE UPPER AND LOWER BOUNDARY OF VALUE
         p = ax.pcolormesh(
             ds.isel(step=step).longitude, # GRAPH SPECIFIC
             ds.isel(step=step).latitude, # GRAPH SPECIFIC
-            ds.isel(step=step)[product], # GRAPH SPECIFIC
+            ds.isel(step=step)[forecast], # GRAPH SPECIFIC
             vmin=data_min, # GRAPH SPECIFIC
             vmax=data_max, # GRAPH SPECIFIC
             transform=projPC,
@@ -161,7 +180,7 @@ def generateLocalPlot(params):
 
         #Set the title of the sublot with model description and time, then add product label
         ax.set_title(
-            f"{ds.isel(step=step).model.upper()}: {description}\nLocal Time: {time_local[step].strftime('%Y-%m-%d %H:%M:%S')}",
+            f"{ds.isel(step=step).model.upper()}: {description}\nLocal Time: {time_local.strftime('%Y-%m-%d %H:%M:%S')}",
             loc="left",
         )
         
@@ -171,13 +190,21 @@ def generateLocalPlot(params):
         #Ensure tight layout of figure, define the complete path and save it
         fig.tight_layout()
         plt.subplots_adjust(hspace=0,wspace=0)
-        final_path = path + product + '_' + state + '_' + str(step) + '.png'
+        final_path = path + model_name + '_' + product_name + '_' + forecast + '_' + state + '_' + time_string + '_' + str(fxx) + '.png'
         print('Saving plot to ' + final_path)
+
+        #Adjust the labels so they don't horribly overlap
+        #adjust_text(texts) broken :(
+
         fig.savefig(final_path, edgecolor='black', dpi=120, transparent=True)
         
         #Add the path to the saved image to the list of paths to be saved
-        link_list.append('goes/model_data/operational/' + product + '_' + state + '_' + str(step) + '.png')
+        link_list.append('goes/model_data/operational/' + model_name + '_' + product_name + '_' + forecast + '_' + state + '_' + time_string + '_' + str(fxx) + '.png')
         
         #Clear the whole figure from memory or risk exploding your computer
         plt.clf() #SUPER DUPER IMPORTANT
-    return [state, product, link_list]
+
+    # Sort the string_array using the custom key function
+    link_list = sorted(link_list, key=extract_number)
+        
+    return [model_name, product_name, forecast, state, link_list]

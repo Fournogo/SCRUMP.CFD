@@ -122,7 +122,16 @@
       <h3 class="purple-flash-text" style="margin: 5px;">FORECAST MODEL BROWSER</h3>
       <br>
       <h4 class="program-text">FORECAST PRODUCT SELECTOR</h3>
-        <select class="toolbar-element" id="model-data-selector">
+        <select class="toolbar-element" id="model-selector">
+          <option value="gfs">GFS</option>
+          <option value="hrrr" selected="selected">HRRR</option>
+        </select> 
+        <select class="toolbar-element" id="product-selector">
+          <option value="subh" selected="selected">SUB-Hourly</option>
+          <option value="sfc">Surface</option>
+          <option value="pgrb2.0p25">0.25 Degree Fields</option>
+        </select> 
+        <select class="toolbar-element" id="forecast-selector">
           <option value="t2m">Temperature</option>
           <option value="refd" selected="selected">Reflectivity</option>
         </select> 

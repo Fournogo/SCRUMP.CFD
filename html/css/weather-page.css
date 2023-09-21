@@ -188,6 +188,7 @@
     user-select: none;
     left: 50%;
     transform: translateX(-50%);
+    filter: blur(0.1px);
   }
 
   #goes-next-button {
@@ -247,6 +248,7 @@
     height: 100%;
     display: none;
     top: 0;
+    /*background-color: #ebbaf1;*/
     background-color: #b6a6b5;
     border-top: solid 2px #fdd9ff;
     border-left: solid 2px #736b74;
@@ -294,6 +296,7 @@
     user-select: none;
     left: 50%;
     transform: translateX(-50%);
+    filter: blur(0.1px);
   }
 
   #good-luck {

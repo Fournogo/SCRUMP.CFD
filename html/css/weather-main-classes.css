@@ -200,6 +200,7 @@ body {
   .menu-bar {
     position: relative;
     top: 0px;
+   /*background-color: #ebbaf1;*/
     background-color: #b6a6b5;
     border-top: solid 2px #fdd9ff;
     border-left: solid 2px #736b74;

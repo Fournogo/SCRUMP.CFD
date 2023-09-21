@@ -8,6 +8,8 @@ import matplotlib.image as image
 from cartopy import crs as ccrs, feature as cfeature
 
 import numpy as np
+import pandas as pd
+import re
 
 #  Suppress warnings issued by Cartopy when downloading data files
 warnings.filterwarnings('ignore')
@@ -15,6 +17,15 @@ warnings.filterwarnings('ignore')
 import pytz
 
 from adjustText import adjust_text
+
+def extract_number(string):
+    import re
+    match = re.search(r'\d{12}', string)
+    
+    if match:
+        return int(match.group())
+    else:
+        return 0
 
 def generateNationalPlot(params):
     #Main projection to view the plot through
@@ -35,10 +46,15 @@ def generateNationalPlot(params):
     sample_points = params['sample_points']
     data_unit = params['data_unit']
     cmap = params['cmap']
-    product = params['product']
+    model_name = params['model_name']
+    product_name = params['product_name']
+    forecast = params['forecast']
     data_min = params['data_min']
     data_max = params['data_max']
     data_label = params['data_label']
+    lat_index = params['lat_index']
+    lon_index = params['lon_index']
+    forecast_range = params['forecast_range']
 
     #Standard params
     path = params['path']
@@ -47,13 +63,20 @@ def generateNationalPlot(params):
 
     #Main loop to go through each forecast hour
     for step in range(ds.step.size):
+
+        try:
+            fxx = forecast_range[step]
+        except:
+            fxx = step
         
         #'GRAPH SPECIFIC' TAG DENOTES SOMETHING UNIQUE TO DIFFERENT GRAPH TYPES. IE RADAR DATA VS TEMPERATURE DATA, DIFFERENT LOCATIONS ETC.
         #Get the local time zone for the graph
-        time = ds['valid_time'].to_index()
-        time_utc = time.tz_localize(pytz.UTC)
-        local_tz = pytz.timezone(tz) # GRAPH SPECIFIC
+        time = ds['valid_time'].isel(step=step).values
+        time = pd.Timestamp(time)
+        time_utc = time.tz_localize(pytz.UTC) # GRAPH SPECIFIC
+        local_tz = pytz.timezone(tz)
         time_local = time_utc.tz_convert(local_tz)
+        time_string = time.strftime('%Y%m%d%H%M')
 
         #Set size of overall figure and define subplot for model data
         fig = plt.figure(figsize=(10, 8)) # GRAPH SPECIFIC
@@ -111,27 +134,24 @@ def generateNationalPlot(params):
 
                 loc = np.where(absolute_difference == np.min(absolute_difference)) # GRAPH SPECIFIC
                 
-                sample_point_value = float(ds.isel(step=step).sel(x=loc[1], y=loc[0])[product][0][0]) # GRAPH SPECIFIC
+                sample_point_value = float(ds.isel(step=step, **{lat_index: loc[0][0]}, **{lon_index: loc[1][0]})[forecast]) # GRAPH SPECIFIC
                 sample_point_value = round(sample_point_value,1) # GRAPH SPECIFIC
                 data_point_text = "\n" + str(sample_point_value) + " " + data_unit
             
             #Add the city to the list of labels if its on the map but not too close to the edge
             if lonW+1 < x < lonE-1 and latS+1 < y < latN-1:
-                texts.append(plt.text(x=x, y=y,
+                texts.append(ax.text(x=x, y=y,
                             s=USA_cities.iloc[index].NAME + data_point_text, # GRAPH SPECIFIC
                             color="black", # MAY NEED TO CONSIDER CHANGING
                             fontsize=8,
                             #COMMENT ON LINUX **csfont,
                             transform=projPC)) 
-                
-        #Adjust the labels so they don't horribly overlap
-        #adjust_text(texts, on_basemap=True)
         
         #ADD MODEL DATA TO MAP DEFINE UPPER AND LOWER BOUNDARY OF VALUE
         p = ax.pcolormesh(
             ds.isel(step=step).longitude,
             ds.isel(step=step).latitude,
-            ds.isel(step=step)[product], # GRAPH SPECIFIC
+            ds.isel(step=step)[forecast], # GRAPH SPECIFIC
             vmin=data_min, # GRAPH SPECIFIC
             vmax=data_max, # GRAPH SPECIFIC
             transform=projPC,
@@ -151,7 +171,7 @@ def generateNationalPlot(params):
 
         #Set the title of the sublot with model description and time, then add product label
         ax.set_title(
-            f"{ds.isel(step=step).model.upper()}: {description}\nEastern Time: {time_local[step].strftime('%Y-%m-%d %H:%M:%S')}",  # GRAPH SPECIFIC
+            f"{ds.isel(step=step).model.upper()}: {description}\nEastern Time: {time_local.strftime('%Y-%m-%d %H:%M:%S')}",  # GRAPH SPECIFIC
             loc="left",
         )
         
@@ -161,13 +181,21 @@ def generateNationalPlot(params):
         #Ensure tight layout of figure, define the complete path and save it
         fig.tight_layout()
         plt.subplots_adjust(hspace=0,wspace=0)
-        final_path = path + product + '_' + state + '_' + str(step) + '.png'
+        final_path = path + model_name + '_' + product_name + '_' + forecast + '_' + state + '_' + time_string + '_' + str(fxx) + '.png'
         print('Saving plot to ' + final_path)
+        
+        #Adjust the labels so they don't horribly overlap
+        #adjust_text(texts) broken :(
+
         fig.savefig(final_path, edgecolor='black', dpi=120, transparent=True)
         
         #Add the path to the saved image to the list of paths to be saved
-        link_list.append('goes/model_data/operational/' + product + '_' + state + '_' + str(step) + '.png')
+        link_list.append('goes/model_data/operational/' + model_name + '_' + product_name + '_' + forecast + '_' + state + '_' + time_string + '_' + str(fxx) + '.png')
         
         #Clear the whole figure from memory or risk exploding your computer
         plt.clf() #SUPER DUPER IMPORTANT
-    return [state, product, link_list]
+
+    # Sort the string_array using the custom key function
+    link_list = sorted(link_list, key=extract_number)
+
+    return [model_name, product_name, forecast, state, link_list]

@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 import json
 import os
 
-url = 'https://digital.mdl.nws.noaa.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=32.7529204&lon=-97.3342545&product=time-series&sky=sky'
+url = 'https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=32.7529204&lon=-97.3342545&product=time-series&sky=sky'
 
 json_filename = "sky_cover_data.json"
 path = '/home/scrump/containers/website/html/json/'
@@ -49,7 +49,7 @@ def main():
     for city in json_data['cities']:
         coordinates = city['coordinates']
         city_name = city['city']
-        url = 'https://graphical.weather.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=' + str(coordinates[0]) + '&lon=' + str(coordinates[1]) +'&product=time-series&sky=sky'
+        url = 'https://digital.mdl.nws.noaa.gov/xml/sample_products/browser_interface/ndfdXMLclient.php?lat=' + str(coordinates[0]) + '&lon=' + str(coordinates[1]) +'&product=time-series&sky=sky'
         data_values = getLatestValues(url)
         final_data.update({city_name: data_values})
 
