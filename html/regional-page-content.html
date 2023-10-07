@@ -121,20 +121,42 @@
     <div class="model-menu" id="model-menu">
       <h3 class="purple-flash-text" style="margin: 5px;">FORECAST MODEL BROWSER</h3>
       <br>
-      <h4 class="program-text">FORECAST PRODUCT SELECTOR</h3>
+      <h4 class="program-text">FORECAST MODEL SELECTOR</h3>
+        <br>
         <select class="toolbar-element" id="model-selector">
           <option value="gfs">GFS</option>
           <option value="hrrr" selected="selected">HRRR</option>
         </select> 
+      <br>
+      <h4 class="program-text" style="margin-top: 10px;">PRODUCT SUBSET</h3>
         <select class="toolbar-element" id="product-selector">
           <option value="subh" selected="selected">SUB-Hourly</option>
           <option value="sfc">Surface</option>
           <option value="pgrb2.0p25">0.25 Degree Fields</option>
         </select> 
+      <h4 class="program-text" style="margin-top: 10px;">FORECAST PRODUCT</h3>
         <select class="toolbar-element" id="forecast-selector">
           <option value="t2m">Temperature</option>
           <option value="refd" selected="selected">Reflectivity</option>
         </select> 
+      <h4 class="program-text" style="margin-top: 10px;">REGION SELECTION</h3>
+        <br>
+        <select class="toolbar-element" id="region-selector">
+          <option value="national">National</option>
+        </select> 
+      <br>
+      <h4 class="program-text" style="margin-top: 10px;">ANIMATION SLIDER</h3>
+      <input type="range" id="forecast-slider" name="forecast-slider" oninput="sliderHandler(this.value)" min="0" max="100">
+          <h4 class="program-text" style="margin: 5px; position: absolute; bottom: 0px; left: 0px; margin-bottom: 50px; font-size: 14px;">
+            These forecast images are produced from model data provided by the National Oceanic and Atmospheric Administration (NOAA).
+            <br>
+            <br>
+            The resolution of each forecast model describes the size each "pixel" on the map represents.
+            <br>
+            <br>
+            The high-resolution Rapid Refresh (HRRR) operates at a 3km resolution, while the GFS operates at 18km. GFS output currently remains unblurred or filtered to give you an idea of how rough the data is. GFS data is best used for identifying trends at a synoptic scale. (Think large scale, though that's not really what synoptic means.) HRRR data allows for more local analysis, but it's always worth remembering weather (literally) doesn't occur in a vacuum. As such these models will NEVER be exactly right, but they'll hopefully be close!
+          </h4>
+          <br>
       <h3 class="purple-flash-text" style="margin: 5px; position: absolute; bottom: 0px;">WORK IN PROGRESS!</h3>
     </div>
     <div class="overall-container" id="radar-model-cont">

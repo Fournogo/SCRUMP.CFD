@@ -1,9 +1,27 @@
 'use strict';
 
+async function forecastLoader(link) {
+    let response;
+    for (let attempt = 0; attempt < 3; ++attempt) {
+        if (attempt > 0) {
+            console.log('Loading failed... Attempt #' + attempt)
+            await delay(100);
+        }
+        try {
+            response = await fetch(link);
+            return response; // It worked
+        } catch {
+
+        }
+    }
+    // Out of retries
+    throw new Error("Serious Loading Error");
+}
+
 async function getDailyForecast() {
     const forecast_link = city.daily_forecast
     document.getElementById('forecast-message-text').innerHTML = city.proper_name.toUpperCase() + ' WEATHER FORECAST';
-    const response = await fetch(forecast_link);
+    const response = await forecastLoader(forecast_link);
     const json_data = await response.json();
     const forecast_data_array = json_data.properties.periods;
     for (let i = 0; i < 14; i++) {
@@ -32,7 +50,7 @@ async function getDailyForecast() {
 
 async function getCurrentTemp() {
     const current_conditions_link = city.current_conditions
-    const response = await fetch(current_conditions_link)
+    const response = await forecastLoader(current_conditions_link);
     const json_data = await response.json();
     document.getElementById('tem').innerHTML = round(json_data.properties.temperature.value * 1.8 + 32,1) + ' F'
     document.getElementById('dew').innerHTML = round(json_data.properties.dewpoint.value * 1.8 + 32,1) + ' F'
@@ -46,4 +64,3 @@ function forecast() {
     getDailyForecast()
     getCurrentTemp()
     };
-

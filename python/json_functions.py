@@ -39,12 +39,24 @@ def renameFiles(path):
         print("No .png files found... continuing.")
 
 # WRITE JSON DATA TO FILE
-def writeJson(data, path, json_filename):
-    json_data = data
-    try:
-        os.chmod(path + json_filename, 0o777)
-    except:
-        print('No JSON file to change permissions on.')
-    with open(path + json_filename + '.json', "w") as f:
-        json.dump(json_data, f)
-        print('JSON saved to ' + json_filename)
+def writeJson(json_data, path, json_filename):
+    json_file = path + json_filename + '.json'
+    if not os.path.exists(json_file):
+        try:
+            os.chmod(json_file, 0o777)
+        except:
+            print('No JSON file to change permissions on.')
+        with open(json_file, 'w') as f:
+            json.dump(json_data, f)
+            print('JSON saved to ' + json_filename)
+    else:
+        print('JSON File Exists... Updating it')
+        with open(json_file, 'r') as f:
+            data = json.load(f)
+
+        for model in json_data:
+            for product in json_data[model]:
+                data[model][product] = json_data[model][product]
+
+        with open(json_file, 'w') as f:
+            json.dump(data, f)

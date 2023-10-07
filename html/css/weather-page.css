@@ -81,7 +81,7 @@
     right: 50px;
     bottom: -1px;
     height: 60px;
-    z-index: 5;
+    z-index: 10;
   }
 
   #forecast-message {
@@ -233,6 +233,11 @@
   /*---------------- MODEL DATA CONTAINER --------------------*/
   /*----------------------------------------------------------*/
 
+  #forecast-slider {
+    margin: 5px;
+    width: 97%;
+  }
+
   #radar-model-vert {
     height: 1250px;
     margin-top: 100px;
@@ -362,4 +367,3 @@
     bottom: -5px;
     height: 40px;
   }
-

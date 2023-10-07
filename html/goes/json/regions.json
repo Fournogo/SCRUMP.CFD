@@ -1,0 +1,24 @@
+{
+    "hrrr": {
+        "national": "United States",
+        "texas": "Texas",
+        "nm": "Southwest US",
+        "mn": "Northern Midwest US",
+        "wa": "Pacific Northwest US",
+        "ny": "Northern East Coast US"
+    },
+    "gfs": {
+        "national": "United States",
+        "texas": "Texas",
+        "nm": "Southwest US",
+        "mn": "Northern Midwest US",
+        "wa": "Pacific Northwest US",
+        "ny": "Northern East Coast US",
+        "northern_hemisphere": "North America",
+        "eastern_europe": "Eastern Europe",
+        "western_europe": "Western Europe",
+        "east_china": "China",
+        "india": "India",
+        "japan": "Japan"
+    }
+}

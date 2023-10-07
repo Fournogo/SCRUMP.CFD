@@ -4,8 +4,8 @@ state_params = [
         'state': 'tx',
         'lonW': -110,
         'lonE': -90,
-        'latS': 24,
-        'latN': 37,
+        'latS': 24, #24
+        'latN': 37, #37
         'tz': 'America/Chicago'
     },
     {
@@ -36,8 +36,8 @@ state_params = [
         'state': 'mn',
         'lonW': -105,
         'lonE': -85,
-        'latS': 37,
-        'latN': 50,
+        'latS': 37, #37
+        'latN': 50, #50
         'tz': 'America/Chicago'
     },
     {

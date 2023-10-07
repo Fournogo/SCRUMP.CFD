@@ -6,7 +6,6 @@ import matplotlib.cm as cm
 import matplotlib.colors as colors
 import matplotlib.ticker as ticker
 from cartopy import crs as ccrs, feature as cfeature
-from cartopy.util import add_cyclic_point
 from scipy.ndimage import gaussian_filter
 
 import numpy as np
@@ -20,8 +19,6 @@ import pytz
 
 from adjustText import adjust_text
 
-#from national_plots import generateNationalPlot
-
 def extract_number(string):
     import re
     match = re.search(r'\d{12}', string)
@@ -31,19 +28,15 @@ def extract_number(string):
     else:
         return 0
 
-# PLOTTING FUNCTION FOR RADAR DATA
-def generateLocalPlot(params):
+def generateNationalPlot(params):
+    #Main projection to view the plot through
+    projection = ccrs.LambertConformal(central_longitude=-97.5, central_latitude=40.5)
+    #These variables consistent across national maps for now
     projPC = ccrs.PlateCarree()
-
-    #'GRAPH SPECIFIC' TAG DENOTES SOMETHING UNIQUE TO DIFFERENT GRAPH TYPES. IE RADAR DATA VS TEMPERATURE DATA, DIFFERENT LOCATIONS ETC.
-    #res = '10m'
+    res = '50m'
     link_list = []
-    #State params allow data to be passed into multiprocessing pool
-    state = params['state']
 
-    #Use a separate function for plotting the national map since a bunch of things need to be changed
-    #if state == 'national':
-        #return generateNationalPlot(params)
+    state = params['state']
 
     tz = params['tz']
     lonW = params['lonW']
@@ -51,11 +44,11 @@ def generateLocalPlot(params):
     latS = params['latS']
     latN = params['latN']
     ds = params['ds']
-    model_name = params['model_name']
-    product_name = params['product_name']
     sample_points = params['sample_points']
     data_unit = params['data_unit']
-    cmap = params['cmap'] 
+    cmap = params['cmap']
+    model_name = params['model_name']
+    product_name = params['product_name']
     forecast = params['forecast']
     data_min = params['data_min']
     data_max = params['data_max']
@@ -67,24 +60,21 @@ def generateLocalPlot(params):
     algorithm = params['algorithm']
     prune = params['prune']
     level_increment = params['level_increment']
-    projection = params['projection']
 
-    #Standard parameters
+    #Standard params
     path = params['path']
     USA_cities = params['city_csv']
     description = params['description']
 
-    #Main projection to view the plot through. Center set to center of bounding coords
-    #projection = ccrs.LambertConformal(central_longitude=-97.5, central_latitude=40.5)
-    
     #Main loop to go through each forecast hour
     for step in range(ds.step.size):
-        
+
         try:
             fxx = forecast_range[step]
         except:
             fxx = step
-
+        
+        #'GRAPH SPECIFIC' TAG DENOTES SOMETHING UNIQUE TO DIFFERENT GRAPH TYPES. IE RADAR DATA VS TEMPERATURE DATA, DIFFERENT LOCATIONS ETC.
         #Get the local time zone for the graph
         time = ds['valid_time'].isel(step=step).values
         time = pd.Timestamp(time)
@@ -94,20 +84,13 @@ def generateLocalPlot(params):
         time_string = time.strftime('%Y%m%d%H%M')
 
         #Set size of overall figure and define subplot for model data
-        fig = plt.figure(figsize=(10,9))
+        fig = plt.figure(figsize=(10, 8)) # GRAPH SPECIFIC
         ax = plt.subplot(1, 1, 1, projection=projection)
-
-        if state == 'northern_hemisphere':
-            lon_range = list(range(-180,180,10))
-            lat_range = list(range(0,90,5))
-        else:
-            lon_range = list(range(-180,180,5))
-            lat_range = list(range(0,90,5))
         
         #Setup gridlines and properties
         gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5, linestyle='--', x_inline=False, y_inline=False, dms=True)
-        gl.ylocator = mticker.FixedLocator(lat_range)
-        gl.xlocator = mticker.FixedLocator(lon_range)
+        gl.ylocator = mticker.FixedLocator([25, 30, 35, 40, 45, 50])
+        gl.xlocator = mticker.FixedLocator([-65, -70, -75, -80, -85, -90, -95, -100, -105, -110, -115, -120, -125])
         gl.xlabels_bottom = False
         gl.xlabel_style = {'rotation': 45}
         
@@ -119,24 +102,23 @@ def generateLocalPlot(params):
         ax1.imshow(im, aspect='equal')
         
         #Set map extent and allow matplotlib to adjust extent to maintain aspect ratio
-        ax.set_extent([lonW, lonE, latS, latN], crs=projPC) # GRAPH SPECIFIC
+        ax.set_extent([lonW, lonE, latS, latN], crs=projPC)
         ax.set_aspect('auto')
         
         #Add map background features
-        ax.add_feature(cfeature.STATES, linewidth=0.3, edgecolor='brown', zorder=1.3) 
-        ax.add_feature(cfeature.LAND, zorder=0.9) 
-        ax.add_feature(cfeature.LAKES, zorder=0.9) 
-        ax.add_feature(cfeature.OCEAN, zorder=0.9)
-        ax.add_feature(cfeature.COASTLINE, linewidth=0.6, edgecolor='gray', zorder=1.5) 
-        ax.add_feature(cfeature.BORDERS, linewidth=0.5, edgecolor='blue', zorder=1.4) 
+        ax.coastlines(resolution=res, linewidth=0.4, color='gray') # GRAPH SPECIFIC
+        ax.add_feature(cfeature.STATES, linewidth=0.3, edgecolor='brown', zorder=3) # GRAPH SPECIFIC
+        #ax.add_feature(cfeature.LAND) GRAPH SPECIFIC
+        #ax.add_feature(cfeature.LAKES) GRAPH SPECIFIC
+        #ax.add_feature(cfeature.OCEAN) GRAPH SPECIFIC
+        ax.add_feature(cfeature.BORDERS, linewidth=0.4, edgecolor='blue', zorder=3) # GRAPH SPECIFIC
         
         #Add scatter plot of city 'dots'
         plt.scatter(x=USA_cities.X, y=USA_cities.Y,
                     color="dodgerblue",
                     s=1,
                     alpha=0.5,
-                    transform=projPC,
-                    zorder=5)
+                    transform=projPC)
         
         #Add the label for each city dot
         texts=[]
@@ -161,15 +143,15 @@ def generateLocalPlot(params):
                 sample_point_value = float(ds.isel(step=step, **{lat_index: loc[0][0]}, **{lon_index: loc[1][0]})[forecast]) # GRAPH SPECIFIC
                 sample_point_value = round(sample_point_value,1) # GRAPH SPECIFIC
                 data_point_text = "\n" + str(sample_point_value) + " " + data_unit
-
+            
             #Add the city to the list of labels if its on the map but not too close to the edge
             if lonW+1 < city_x < lonE-1 and latS+1 < city_y < latN-1:
                 texts.append(ax.text(x=city_x, y=city_y,
-                            s=USA_cities.iloc[index].NAME + data_point_text, # GRAPH SPECIFIC,
-                            color="black",
+                            s=USA_cities.iloc[index].NAME + data_point_text, # GRAPH SPECIFIC
+                            color="black", # MAY NEED TO CONSIDER CHANGING
                             fontsize=8,
                             #COMMENT ON LINUX **csfont,
-                            transform=projPC))
+                            transform=projPC)) 
 
         data = ds.isel(step=step)[forecast]
 
@@ -186,21 +168,19 @@ def generateLocalPlot(params):
             p = ax.pcolormesh(
                 ds.isel(step=step).longitude,
                 ds.isel(step=step).latitude,
-                ds.isel(step=step)[forecast],
+                ds.isel(step=step)[forecast],   
                 vmin=data_min, # GRAPH SPECIFIC
                 vmax=data_max, # GRAPH SPECIFIC
                 transform=projPC,
                 cmap=cmap,
-                zorder=1,
+                zorder=2,
             )
 
         else:
 
             lons = ds.isel(step=step).longitude.values
             lats = ds.isel(step=step).latitude.values
-
             if np.ndim(lons) == 1 or np.ndim(lats) == 1:
-                data, lons = add_cyclic_point(data, coord=lons)
                 lons,lats = np.meshgrid(lons,lats)
             
             points = projection.transform_points(projPC, lons, lats)
@@ -229,7 +209,7 @@ def generateLocalPlot(params):
                     levels=data_max-data_min,
                     transform=projPC,
                     cmap=cmap,
-                    zorder=1,
+                    zorder=2,
                     **{'locator': pruner},
                     algorithm='threaded',
                     transform_first=True
@@ -246,15 +226,15 @@ def generateLocalPlot(params):
                     levels=levels,
                     transform=projPC,
                     colors='black',
-                    zorder=1,
+                    zorder=2,
                     algorithm = 'threaded'
                 )
             
                 ax.clabel(p)
-
+        
         if not algorithm == 'contour':
             #Define the colorbar and its boundaries. Sets colorbar as segmented instead of continuous
-            bounds = list(range(data_min-5,data_max+5,5))
+            bounds = list(range(data_min-5,data_max+5,5)) # GRAPH SPECIFIC
             norm = colors.BoundaryNorm(bounds, cmap.N, extend='both')
             plt.colorbar(cm.ScalarMappable(norm=norm, cmap=cmap),
                         ax=ax,
@@ -265,19 +245,19 @@ def generateLocalPlot(params):
 
         #Set the title of the sublot with model description and time, then add product label
         ax.set_title(
-            f"{ds.isel(step=step).model.upper()}: {description}\nLocal Time: {time_local.strftime('%Y-%m-%d %H:%M:%S')}",
+            f"{ds.isel(step=step).model.upper()}: {description}\nEastern Time: {time_local.strftime('%Y-%m-%d %H:%M:%S')}",  # GRAPH SPECIFIC
             loc="left",
         )
         
         #Set description to GRIB name of product
-        ax.set_title(data_label, loc="right")
+        ax.set_title(data_label, loc="right") # GRAPH SPECIFIC
         
         #Ensure tight layout of figure, define the complete path and save it
         fig.tight_layout()
         plt.subplots_adjust(hspace=0,wspace=0)
         final_path = path + model_name + '_' + product_name + '_' + forecast + '_' + state + '_' + time_string + '_' + str(fxx) + '.png'
         print('Saving plot to ' + final_path)
-
+        
         #Adjust the labels so they don't horribly overlap
         #adjust_text(texts) broken :(
 
@@ -291,5 +271,5 @@ def generateLocalPlot(params):
 
     # Sort the string_array using the custom key function
     link_list = sorted(link_list, key=extract_number)
-        
+
     return [model_name, product_name, forecast, state, link_list]

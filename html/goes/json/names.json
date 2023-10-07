@@ -5,5 +5,7 @@
     "sfc": "Hourly HRRR Products (Every Hour)",
     "pgrb2.0p25": "GFS Products (Every Hour to Every 6 Hours)",
     "refd": "Radar Reflectivity",
-    "t2m": "Temperature 2m Above Ground"
+    "t2m": "Temperature 2m Above Ground",
+    "d2m": "Dewpoint 2m Above Ground",
+    "gh": "Geopotential Height at 500 mb"
 }

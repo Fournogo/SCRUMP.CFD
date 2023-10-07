@@ -5,7 +5,8 @@ let radar_model_image_array = [];
 let radar_model_hours_array = [];
 let radar_model_animation_paused = false;
 let radar_model_animation_unpaused = true;
-let radar_model_minimum_index = 0;
+let model_data_min_index = 0;
+let model_data_max_index;
 
 let radar_model_pause_is_clicked = false;
 let radar_model_back_is_clicked = false;
@@ -24,10 +25,49 @@ let model_speed = 10;
 let forecast_selector = 'refd';
 let product_selector = 'subh';
 let model_selector = 'hrrr';
+let slider_value = 0;
 
 let added_options = [];
 
 let radar_model_animation_delay;
+
+let sliding = false;
+let regions;
+let model_data;
+let common_names;
+
+async function getRegions() {
+    let response = await fetch('../goes/json/regions.json');
+    regions = await response.json();
+}   
+
+async function getModelData() {
+    let response = await fetch(path_to_radar_model + file_name);
+    model_data = await response.json();
+}
+
+async function getNames() {
+    let names_response = await fetch(path_to_radar_model + 'names.json')
+    common_names = await names_response.json();
+}
+
+function resetRegions(model) {
+    document.getElementById('region-selector').innerHTML = ''
+    let region_list = regions[model];
+    current_region_selection = Object.keys(region_list)[0];
+
+    for (let region of Object.keys(region_list)) {
+        let region_option = document.createElement("option");
+        region_option.text = region_list[region];
+        region_option.value = region;
+
+        if (region == current_region_selection) {
+            region_option.selected == true;
+        }
+
+        document.getElementById('region-selector').appendChild(region_option);
+    }
+}
 
 async function getRadarModelLinks() {
     enableRadarModelLoading();
@@ -36,11 +76,6 @@ async function getRadarModelLinks() {
     radar_model_image_array = [];
     let link;
     let element;
-    let response = await fetch(path_to_radar_model + file_name);
-    let json_data = await response.json();
-
-    let names_response = await fetch(path_to_radar_model + 'names.json')
-    let names = await names_response.json();
 
     document.getElementById('product-selector').innerHTML = ''
     document.getElementById('forecast-selector').innerHTML = ''
@@ -49,26 +84,28 @@ async function getRadarModelLinks() {
 
     if (current_model_selection != model_selector) {
         current_model_selection = model_selector;
-        current_product_selection = Object.keys(json_data[current_model_selection])[0];
-        current_forecast_selection = Object.keys(json_data[current_model_selection][current_product_selection])[0];
+        resetRegions(current_model_selection);
+        current_product_selection = Object.keys(model_data[current_model_selection])[0];
+        current_forecast_selection = Object.keys(model_data[current_model_selection][current_product_selection])[0];
         product_selector = current_product_selection;
         forecast_selector = current_forecast_selection;
     } else {
         current_model_selection = model_selector;
+        current_region_selection = region_selector;
         current_forecast_selection = forecast_selector;
         current_product_selection = product_selector;
     }
 
-    for (let model of Object.keys(json_data)) {
+    for (let model of Object.keys(model_data)) {
         if (model = current_model_selection) {
-            for (let product of Object.keys(json_data[model])) {
-                for (let forecast of Object.keys(json_data[model][product])) {
+            for (let product of Object.keys(model_data[model])) {
+                for (let forecast of Object.keys(model_data[model][product])) {
                     let forecast_option = document.createElement("option");
-                    forecast_option.text = names[forecast];
+                    forecast_option.text = common_names[forecast];
                     forecast_option.value = forecast;
 
                     let product_option = document.createElement("option");
-                    product_option.text = names[product];
+                    product_option.text = common_names[product];
                     product_option.value = product;
 
                     if (product == current_product_selection) {
@@ -92,10 +129,11 @@ async function getRadarModelLinks() {
             }
         }
     }
-    
-    console.log(current_model_selection);
-    console.log(current_product_selection);
-    let image_links = json_data[current_model_selection][current_product_selection][current_forecast_selection][city.state];
+    console.log(current_model_selection)
+    console.log(current_product_selection)
+    console.log(current_forecast_selection)
+    console.log(current_region_selection)
+    let image_links = model_data[current_model_selection][current_product_selection][current_forecast_selection][current_region_selection];
     document.getElementById('radar-model-images').innerHTML = '';
 
     let percent_increment = (1 / image_links.length);
@@ -110,8 +148,6 @@ async function getRadarModelLinks() {
         }
         return value - array[index - 1]; // Handle the last element (no next element to subtract)
     });
-
-    console.log(radar_model_hours_array)
 
     for (let i = 1; i < image_links.length; i++) {
         link = image_links[i];
@@ -131,11 +167,21 @@ async function getRadarModelLinks() {
         document.getElementById('model-data-nyancat').style.left = (percent_complete_rounded + "%");
         document.getElementById('model-data-loading-percent').innerText = ("LOADING: " + percent_complete_rounded + "%" + " COMPLETE");
 
-        if (forecast_selector != current_forecast_selection || product_selector != current_product_selection || model_selector != current_model_selection) {
+        if (forecast_selector != current_forecast_selection || 
+            product_selector != current_product_selection || 
+            model_selector != current_model_selection ||
+            region_selector != current_region_selection
+            ) {
             //current_model_selection = model_selector
             getRadarModelLinks();
             return false;
         }
+
+        model_data_max_index = radar_model_image_array.length - 1 
+
+        document.getElementById('forecast-slider').min = model_data_min_index
+        document.getElementById('forecast-slider').max = model_data_max_index
+
     }
 
     clearRadarModelLoading();
@@ -163,7 +209,14 @@ function extractNumbers(filename) {
 
 function animateRadarModel() { 
 
-    if (forecast_selector != current_forecast_selection || product_selector != current_product_selection || model_selector != current_model_selection) {
+    if (sliding == true) {
+        return false;
+    }
+
+    if (forecast_selector != current_forecast_selection || 
+        product_selector != current_product_selection || 
+        model_selector != current_model_selection ||
+        region_selector != current_region_selection) {
         //current_model_selection = model_selector
         getRadarModelLinks();
         return false;
@@ -181,8 +234,8 @@ function animateRadarModel() {
         next_radar_model_animation_index = radar_model_animation_index - 1
     }
 
-    if (radar_model_animation_index == radar_model_minimum_index) {
-        radar_model_image_array[radar_model_image_array.length - 1].style.opacity = "0";
+    if (radar_model_animation_index == model_data_min_index) {
+        radar_model_image_array[model_data_max_index].style.opacity = "0";
         radar_model_image_array[radar_model_animation_index].style.opacity = "1";
         radar_model_image_array[radar_model_animation_index + 1].style.opacity = "0";
         if (radar_model_animation_paused == false) {
@@ -192,12 +245,12 @@ function animateRadarModel() {
             radar_model_animation_delay = 100;
         }
 
-    } else if (radar_model_animation_index == radar_model_image_array.length - 1) {
+    } else if (radar_model_animation_index == model_data_max_index) {
         radar_model_image_array[radar_model_animation_index - 1].style.opacity = "0";
         radar_model_image_array[radar_model_animation_index].style.opacity = "1";
-        radar_model_image_array[radar_model_minimum_index].style.opacity = "0";
+        radar_model_image_array[model_data_min_index].style.opacity = "0";
         if (radar_model_animation_paused == false) {
-            next_radar_model_animation_index = radar_model_minimum_index
+            next_radar_model_animation_index = model_data_min_index
             radar_model_animation_delay = 20000 / model_speed;
         } else {
             radar_model_animation_delay = 100;
@@ -215,16 +268,15 @@ function animateRadarModel() {
         }
     }
 
-    if (next_radar_model_animation_index < radar_model_minimum_index) {
-        next_radar_model_animation_index = radar_model_image_array.length - 1;
+    if (next_radar_model_animation_index < model_data_min_index) {
+        next_radar_model_animation_index = model_data_max_index;
     }
 
-    if (next_radar_model_animation_index > radar_model_image_array.length - 1) {
-        next_radar_model_animation_index = radar_model_minimum_index;
+    if (next_radar_model_animation_index > model_data_max_index) {
+        next_radar_model_animation_index = model_data_min_index;
     }
 
     radar_model_animation_index = next_radar_model_animation_index;
-    console.log(radar_model_animation_delay)
     requestAnimationFrame(animateModel);
     //setTimeout(animateRadarModel, radar_model_animation_delay);
 }
@@ -236,6 +288,11 @@ function enableRadarModelButtons() {
         } else if (radar_model_animation_paused == false) {
             radar_model_animation_paused = true;
         }
+        if (sliding == true) {
+            sliding = false;
+            next_radar_model_animation_index = radar_model_animation_index + 1;
+            animateRadarModel();
+        }
     });
     
     document.getElementById('radar-model-images').style.cursor = "pointer";
@@ -246,6 +303,11 @@ function enableRadarModelButtons() {
         } else if (radar_model_next_is_clicked == false) {
             radar_model_next_is_clicked = true;
         }
+        if (sliding == true) {
+            sliding = false;
+            next_radar_model_animation_index = radar_model_animation_index + 1;
+            animateRadarModel();
+        }
     });
 
     document.getElementById('radar-model-next-button').addEventListener("click", function() {
@@ -253,6 +315,11 @@ function enableRadarModelButtons() {
             radar_model_next_is_clicked = false;
         } else if (radar_model_next_is_clicked == false) {
             radar_model_next_is_clicked = true;
+        }
+        if (sliding == true) {
+            sliding = false;
+            next_radar_model_animation_index = radar_model_animation_index + 1;
+            animateRadarModel();
         }
     });
 
@@ -262,6 +329,11 @@ function enableRadarModelButtons() {
         } else if (radar_model_back_is_clicked == false) {
             radar_model_back_is_clicked = true;
         }
+        if (sliding == true) {
+            sliding = false;
+            next_radar_model_animation_index = radar_model_animation_index + 1;
+            animateRadarModel();
+        }
     });
 
     document.getElementById('radar-model-speed-select').addEventListener('change', function() {
@@ -269,17 +341,71 @@ function enableRadarModelButtons() {
     });
 }
 
+function sliderHandler(value) {
+    if (sliding == false) {
+        if (radar_model_animation_index != model_data_min_index) {
+            radar_model_image_array[radar_model_animation_index - 1].style.opacity = "0";
+        } else {
+            radar_model_image_array[model_data_max_index].style.opacity = "0";
+        }
+        sliding = true;
+    }
+
+    slider_value = Number(value);
+
+    radar_model_image_array[radar_model_animation_index].style.opacity = "0";
+    radar_model_animation_index = slider_value;
+
+    radar_model_animation_paused = true;
+    console.log(radar_model_animation_index)
+    console.log(slider_value)
+    if (slider_value != model_data_max_index && slider_value != model_data_min_index) {
+        radar_model_image_array[radar_model_animation_index + 1].style.opacity = "0";
+        radar_model_image_array[radar_model_animation_index - 1].style.opacity = "0";
+    } else if (slider_value == model_data_max_index) {
+        radar_model_image_array[radar_model_animation_index - 1].style.opacity = "0";
+    } else if (slider_value == model_data_min_index) {
+        radar_model_image_array[radar_model_animation_index + 1].style.opacity = "0";
+    }
+    //next_radar_model_animation_index = radar_model_animation_index + 1;
+    radar_model_image_array[radar_model_animation_index].style.opacity = "1";
+}
+
 function enableForecastBrowser() {
     document.getElementById('forecast-selector').addEventListener('change', function() {
         forecast_selector = this.value;
+        if (sliding == true) {
+            sliding = false;
+            getRadarModelLinks();
+            return false;
+        }
     });
 
     document.getElementById('model-selector').addEventListener('change', function() {
         model_selector = this.value;
+        if (sliding == true) {
+            sliding = false;
+            getRadarModelLinks();
+            return false;
+        }
     });
 
     document.getElementById('product-selector').addEventListener('change', function() {
         product_selector = this.value;
+        if (sliding == true) {
+            sliding = false;
+            getRadarModelLinks();
+            return false;
+        }
+    });
+
+    document.getElementById('region-selector').addEventListener('change', function() {
+        region_selector = this.value;
+        if (sliding == true) {
+            sliding = false;
+            getRadarModelLinks();
+            return false;
+        }
     });
 }
 
@@ -295,8 +421,17 @@ function enableRadarModelLoading() {
     document.getElementById('radar-model-loading-text').style.zIndex = "10";
 }
 
+function clearModelData() {
+    for (const child of document.getElementById('radar-model-images').children) {
+        child.style.opacity = "0"
+        }
+}
+
 async function animate_radar_model_async() {
     enableForecastBrowser();
+    await getRegions();
+    await getModelData();
+    await getNames();
     await getRadarModelLinks();
     enableRadarModelButtons();
 }

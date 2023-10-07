@@ -5,6 +5,7 @@ let path_to_sky = '../json/sky_cover_data.json'
 let temperatures = ["Temperature"];
 let precip_probs = ["Precip"];
 let dewpoints = ["Dewpoint"];
+let humidity = ["Humidity"];
 let uvi = ["UVI"];
 let uv_times = ["x"];
 let forecast_time = ["x"];
@@ -76,12 +77,13 @@ function plotTemp() {
 function plotPrecip() {
 
     chart_data_precip.push(forecast_time);
+    chart_data_precip.push(humidity);
     chart_data_precip.push(precip_probs);
 
     // GENERATE PRECIP PROB GRAPH
     bb.generate({
         title: {
-            text: "Estimated Probability of Precipitation"
+            text: "Estimated Probability of Precipitation & Relative Humdity"
           },
         data: {
             x: "x",
@@ -89,9 +91,11 @@ function plotPrecip() {
             xFormat: "%Y-%m-%d %H:%M",
             columns: chart_data_precip,
             types: {
+                Humidity: "line",
                 Precip: "line"
             },
             colors: {
+                Humidity: "green",
                 Precip: "blue"
             }
         },
@@ -237,15 +241,34 @@ function plotSky() {
     });
 }
 
+async function chartLoader(link) {
+    let response;
+    for (let attempt = 0; attempt < 3; ++attempt) {
+        if (attempt > 0) {
+            console.log('Loading failed... Attempt #' + attempt)
+            await delay(100);
+        }
+        try {
+            response = await fetch(link);
+            return response; // It worked
+        } catch {
+
+        }
+    }
+    // Out of retries
+    throw new Error("Serious Loading Error");
+}
+
 // GET HOURLY FORECAST DATA
 async function getHourlyForecast() {
     const forecast_link = city.hourly_forecast;
-    const response = await fetch(forecast_link);
+    const response = await chartLoader(forecast_link);
     const json_data = await response.json();
     const forecast_data_array = json_data.properties.periods;
     for (let i = 0; i < 108; i++) {
         temperatures.push(forecast_data_array[i].temperature);
         dewpoints.push(forecast_data_array[i].dewpoint.value * 1.8 + 32);
+        humidity.push(forecast_data_array[i].relativeHumidity.value);
         forecast_time.push(forecast_data_array[i].endTime.slice(0,10) + " " + forecast_data_array[i].endTime.slice(11,16));
         is_daytime.push(forecast_data_array[i].isDaytime);
         if (forecast_data_array[i].probabilityOfPrecipitation.value == null) {
@@ -260,7 +283,7 @@ async function getHourlyForecast() {
 
 // GET THE CLOUD COVER FORECAST
 async function getSkyCoverForecast() {
-    const response = await fetch(path_to_sky);
+    const response = await chartLoader(path_to_sky);
     const json_data = await response.json();
     const sky_cover_data = json_data[city.city];
 
@@ -274,7 +297,7 @@ async function getSkyCoverForecast() {
 // GET UV FORECAST DATA
 async function getUVForecast() {
     const forecast_link = city.uv_hourly;
-    const response = await fetch(forecast_link);
+    const response = await chartLoader(forecast_link);
     const json_data = await response.json();
 
     let uv_time;

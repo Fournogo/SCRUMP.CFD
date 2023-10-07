@@ -3,7 +3,7 @@
 function radar() {
     document.getElementById('radar-loop').src = city.radar_loop
     document.getElementById('radar-latest').src = city.radar_latest
-    };
+};
 
 let radar_paused = false;
 
