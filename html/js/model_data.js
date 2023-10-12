@@ -17,12 +17,12 @@ let file_name = 'model_data.json'
 
 let next_radar_model_animation_index = radar_model_animation_index;
 
-let current_forecast_selection = 'refd';
+let current_forecast_selection = 'refd1000m';
 let current_product_selection = 'subh';
 let current_model_selection = 'hrrr';
 
 let model_speed = 10;
-let forecast_selector = 'refd';
+let forecast_selector = 'refd1000m';
 let product_selector = 'subh';
 let model_selector = 'hrrr';
 let slider_value = 0;

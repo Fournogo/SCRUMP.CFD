@@ -43,6 +43,11 @@ def convertGH(ds, forecast_name):
     ds[forecast_name] = ds[forecast_name] / 10
     return ds
 
+def convertWind(ds, forecast_name):
+    #Convert from m/s to mph
+    ds[forecast_name] = ds[forecast_name] * 2.23694
+    return ds
+
 models = {
         'hrrr': {
             'product': {
@@ -53,8 +58,8 @@ models = {
                     # 'fxx': [1],
                     # 'freq': ['1H'],
                     'forecast': [
-                         {  'name':'refd',
-                            'search': 'REFD:1000 m above',
+                         {  'name':['refd'],
+                            'search': ['REFD:1000 m above'],
                             'conversion': convertRefdNan,
                             'sample_points': False,
                             'colormap': cm.gist_ncar,
@@ -67,10 +72,13 @@ models = {
                             'gaussian': False,
                             'algorithm': 'pcolormesh',
                             'prune': True,
-                            'level_increment': 1
+                            'level_increment': 1,
+                            'model_res': 3,
+                            'data_var_names': ['refd'],
+                            'height': '1000m'
                         },
-                        {   'name': 't2m',
-                            'search': 'TMP:2 m above',
+                        {   'name': ['t2m'],
+                            'search': ['TMP:2 m above'],
                             'conversion': convertT2m,
                             'sample_points': True,
                             'colormap': cm.nipy_spectral,
@@ -83,7 +91,10 @@ models = {
                             'gaussian': False,
                             'algorithm': 'pcolormesh',
                             'prune': False,
-                            'level_increment': 1
+                            'level_increment': 1,
+                            'model_res': 3,
+                            'data_var_names': ['t2m'],
+                            'height': '2m'
                         }
                     ]
             }, 
@@ -94,8 +105,8 @@ models = {
                     # 'fxx': [1],
                     # 'freq': ['1H'],
                     'forecast': [
-                        {   'name': 'refd',
-                            'search': 'REFD:1000 m above',
+                        {   'name': ['refd'],
+                            'search': ['REFD:1000 m above'],
                             'conversion': convertRefdNan,
                             'sample_points': False,
                             'colormap': cm.gist_ncar,
@@ -108,10 +119,13 @@ models = {
                             'gaussian': False,
                             'algorithm': 'pcolormesh',
                             'prune': True,
-                            'level_increment': 1
+                            'level_increment': 1,
+                            'model_res': 3,
+                            'data_var_names': ['refd'],
+                            'height': '1000m'
                         },
-                        {   'name': 't2m',
-                            'search': 'TMP:2 m above',
+                        {   'name': ['t2m'],
+                            'search': ['TMP:2 m above'],
                             'conversion': convertT2m,
                             'sample_points': True,
                             'colormap': cm.nipy_spectral,
@@ -124,10 +138,13 @@ models = {
                             'gaussian': False,
                             'algorithm': 'pcolormesh',
                             'prune': False,
-                            'level_increment': 1
+                            'level_increment': 1,
+                            'model_res': 3,
+                            'data_var_names': ['t2m'],
+                            'height': '2m'
                         },
-                        {   'name': 'd2m',
-                            'search': 'DPT:2 m above',
+                        {   'name': ['d2m'],
+                            'search': ['DPT:2 m above'],
                             'conversion': convertT2m,
                             'sample_points': True,
                             'colormap': cm.nipy_spectral,
@@ -140,10 +157,13 @@ models = {
                             'gaussian': False,
                             'algorithm': 'pcolormesh',
                             'prune': False,
-                            'level_increment': 1
+                            'level_increment': 1,
+                            'model_res': 3,
+                            'data_var_names': ['d2m'],
+                            'height': '2m'
                         },
-                        {   'name': 'gh',
-                            'search': 'HGT:500 mb',
+                        {   'name': ['gh'],
+                            'search': ['HGT:500 mb'],
                             'conversion': convertGH,
                             'sample_points': False,
                             'colormap': None,
@@ -153,10 +173,13 @@ models = {
                             'data_label': '500 mb Geopotential Height',
                             'lat_index': 'y',
                             'lon_index': 'x',
-                            'gaussian': False,
+                            'gaussian': True,
                             'algorithm': 'contour',
                             'prune': False,
-                            'level_increment': 3
+                            'level_increment': 3,
+                            'model_res': 3,
+                            'data_var_names': ['gh'],
+                            'height': '500mb'
                         }
                     ]
                 }
@@ -171,8 +194,8 @@ models = {
                         # 'fxx': [3],
                         # 'freq': ['1H'],
                         'forecast': [
-                            {   'name': 'refd',
-                                'search': 'REFD:1000 m above',
+                            {   'name': ['refd'],
+                                'search': ['REFD:1000 m above'],
                                 'conversion': convertRefdZero,
                                 'sample_points': False,
                                 'colormap': cm.gist_ncar,
@@ -185,10 +208,13 @@ models = {
                                 'gaussian': True,
                                 'algorithm': 'contourf',
                                 'prune': True,
-                                'level_increment': 1
+                                'level_increment': 1,
+                                'model_res': 18,
+                                'data_var_names': ['refd'],
+                                'height': '1000m'
                             },
-                            {   'name': 't2m',
-                                'search': 'TMP:2 m above',
+                            {   'name': ['t2m'],
+                                'search': ['TMP:2 m above'],
                                 'conversion': convertT2m,
                                 'sample_points': True,
                                 'colormap': cm.nipy_spectral,
@@ -201,10 +227,13 @@ models = {
                                 'gaussian': False,
                                 'algorithm': 'contourf',
                                 'prune': False,
-                                'level_increment': 1
+                                'level_increment': 1,
+                                'model_res': 18,
+                                'data_var_names': ['t2m'],
+                                'height': '2m'
                             },
-                            {   'name': 'd2m',
-                                'search': 'DPT:2 m above',
+                            {   'name': ['d2m'],
+                                'search': ['DPT:2 m above'],
                                 'conversion': convertT2m,
                                 'sample_points': True,
                                 'colormap': cm.nipy_spectral,
@@ -217,10 +246,13 @@ models = {
                                 'gaussian': False,
                                 'algorithm': 'contourf',
                                 'prune': False,
-                                'level_increment': 1
+                                'level_increment': 1,
+                                'model_res': 18,
+                                'data_var_names': ['d2m'],
+                                'height': '2m'
                             },
-                            {   'name': 'gh',
-                                'search': 'HGT:500 mb',
+                            {   'name': ['gh'],
+                                'search': ['HGT:500 mb'],
                                 'conversion': convertGH,
                                 'sample_points': False,
                                 'colormap': None,
@@ -230,11 +262,52 @@ models = {
                                 'data_label': '500 mb Geopotential Height',
                                 'lat_index': 'latitude',
                                 'lon_index': 'longitude',
-                                'gaussian': False,
+                                'gaussian': True,
                                 'algorithm': 'contour',
                                 'prune': False,
-                                'level_increment': 3
-                            }
+                                'level_increment': 3,
+                                'model_res': 18,
+                                'data_var_names': ['gh'],
+                                'height': '500mb'
+                            },
+                            {   'name': ['u','v'],
+                                'search': ['UGRD:20 m above','VGRD:20 m above'], #Must put in U, V order
+                                'conversion': convertWind,
+                                'sample_points': False,
+                                'colormap': cm.gist_ncar,
+                                'data_unit': None,
+                                'data_min': 0,
+                                'data_max': 100,
+                                'data_label': 'Wind 20m Above Surface, MPH',
+                                'lat_index': 'latitude',
+                                'lon_index': 'longitude',
+                                'gaussian': False,
+                                'algorithm': 'barbs',
+                                'prune': False,
+                                'level_increment': 3,
+                                'model_res': 18,
+                                'data_var_names': ['u','v'],
+                                'height': '20m'
+                            },
+                            {   'name': ['u','v'],
+                                'search': ['UGRD:500 mb','VGRD:500 mb'], #Must put in U, V order
+                                'conversion': convertWind,
+                                'sample_points': False,
+                                'colormap': cm.gist_ncar,
+                                'data_unit': None,
+                                'data_min': 0,
+                                'data_max': 100,
+                                'data_label': 'Wind at 500mb level, MPH',
+                                'lat_index': 'latitude',
+                                'lon_index': 'longitude',
+                                'gaussian': False,
+                                'algorithm': 'barbs',
+                                'prune': False,
+                                'level_increment': 3,
+                                'model_res': 18,
+                                'data_var_names': ['u','v'],
+                                'height': '500mb'
+                            },
                         ]
                     }
                 }    
@@ -268,7 +341,7 @@ if __name__ == '__main__':
                 
                 time_offset = product['run_freq'] + 1
                 #Define the offset from the current time in order to get a sufficiently old model run
-                model_run_time = start_utc_time - timedelta(hours=9, minutes=0)
+                model_run_time = start_utc_time - timedelta(hours=time_offset, minutes=0)
 
                 #Not all of these models run every hour. Make sure the requested hour will work.
                 if model_run_time.hour % product['run_freq'] != 0:
@@ -330,24 +403,40 @@ if __name__ == '__main__':
                             forecast1 = product['forecast'][pos]
                             forecast2 = product['forecast'][pos + 1]
 
+                            height1 = forecast1['height']
+                            height2 = forecast2['height']
+
                             forecast_name1 = forecast1['name']
                             forecast_name2 = forecast2['name']
 
+                            ds1 = []
+                            ds2 = []
+
                             if i == 0:
                                 if region_list == default_region_params[0]:
-                                    final_links[model_name][product_name].update({forecast_name1: {}})
-                                    final_links[model_name][product_name].update({forecast_name2: {}})
+                                    final_links[model_name][product_name].update({forecast_name1[0] + height1: {}})
+                                    final_links[model_name][product_name].update({forecast_name2[0] + height2: {}})
                                 for region in region_list:
-                                    final_links[model_name][product_name][forecast_name1].update({region['state']: []})
-                                    final_links[model_name][product_name][forecast_name2].update({region['state']: []})
+                                    final_links[model_name][product_name][forecast_name1[0] + height1].update({region['state']: []})
+                                    final_links[model_name][product_name][forecast_name2[0] + height2].update({region['state']: []})
 
-                            print('Downloading GRIB Files and Parsing: ' + forecast_name1)
-                            ds1 = H.xarray(forecast1['search'], max_threads=50)
-                            ds1 = forecast1['conversion'](ds1, forecast_name1)
+                            print('Downloading GRIB Files and Parsing: ' + forecast_name1[0])
+                            ds1.append(H.xarray(forecast1['search'][0], max_threads=50))
+                            ds1[0] = forecast1['conversion'](ds1[0], forecast_name1[0])
 
-                            print('Downloading GRIB Files and Parsing: ' + forecast_name2)
-                            ds2 = H.xarray(forecast2['search'], max_threads=50)
-                            ds2 = forecast2['conversion'](ds2, forecast_name2)
+                            if len(forecast1['search']) > 1:
+                                print('Downloading GRIB Files and Parsing: ' + forecast_name1[1])
+                                ds1.append(H.xarray(forecast1['search'][1], max_threads=50))
+                                ds1[1] = forecast1['conversion'](ds1[1], forecast_name1[1])
+
+                            print('Downloading GRIB Files and Parsing: ' + forecast_name2[0])
+                            ds2.append(H.xarray(forecast2['search'][0], max_threads=50))
+                            ds2[0] = forecast2['conversion'](ds2[0], forecast_name2[0])
+
+                            if len(forecast2['search']) > 1:
+                                print('Downloading GRIB Files and Parsing: ' + forecast_name2[1])
+                                ds2.append(H.xarray(forecast2['search'][1], max_threads=50))
+                                ds2[1] = forecast2['conversion'](ds2[1], forecast_name2[1])
 
                             forecast_hour_list = list(forecast_range)
                             
@@ -372,6 +461,9 @@ if __name__ == '__main__':
                                 param1.update({'algorithm': forecast1['algorithm']})
                                 param1.update({'prune': forecast1['prune']})
                                 param1.update({'level_increment': forecast1['level_increment']})
+                                param1.update({'model_res': forecast1['model_res']})
+                                param1.update({'data_var_names': forecast1['data_var_names']})
+                                param1.update({'height': forecast1['height']})
 
                             for param2 in params2:
                                 param2.update({'ds': ds2})
@@ -394,6 +486,9 @@ if __name__ == '__main__':
                                 param2.update({'algorithm': forecast2['algorithm']})
                                 param2.update({'prune': forecast2['prune']})
                                 param2.update({'level_increment': forecast2['level_increment']})
+                                param2.update({'model_res': forecast2['model_res']})
+                                param2.update({'data_var_names': forecast2['data_var_names']})
+                                param2.update({'height': forecast2['height']})
 
                             params = params1 + params2
 

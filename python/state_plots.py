@@ -50,13 +50,13 @@ def generateLocalPlot(params):
     lonE = params['lonE']
     latS = params['latS']
     latN = params['latN']
-    ds = params['ds']
+    ds = params['ds'] #Now requires a list
     model_name = params['model_name']
     product_name = params['product_name']
     sample_points = params['sample_points']
     data_unit = params['data_unit']
     cmap = params['cmap'] 
-    forecast = params['forecast']
+    forecast = params['forecast'] #Now requires a list
     data_min = params['data_min']
     data_max = params['data_max']
     data_label = params['data_label']
@@ -68,11 +68,22 @@ def generateLocalPlot(params):
     prune = params['prune']
     level_increment = params['level_increment']
     projection = params['projection']
+    model_res = params['model_res']
+    data_var_names = params['data_var_names']
+    height = params['height']
 
     #Standard parameters
     path = params['path']
     USA_cities = params['city_csv']
     description = params['description']
+
+    if len(ds) > 1:
+        ds2 = ds[1]
+    ds = ds[0]
+
+    if len(forecast) > 1:
+        forecast2 = forecast[1]
+    forecast = forecast[0]
 
     #Main projection to view the plot through. Center set to center of bounding coords
     #projection = ccrs.LambertConformal(central_longitude=-97.5, central_latitude=40.5)
@@ -194,7 +205,7 @@ def generateLocalPlot(params):
                 zorder=1,
             )
 
-        else:
+        elif algorithm == 'contourf' or algorithm == 'contour':
 
             lons = ds.isel(step=step).longitude.values
             lats = ds.isel(step=step).latitude.values
@@ -239,6 +250,11 @@ def generateLocalPlot(params):
 
                 levels = int(round((np.max(data) - np.min(data))/level_increment))
 
+                ds_factor = 4
+                lats = lats[::ds_factor,::ds_factor]
+                lons = lons[::ds_factor,::ds_factor]
+                data = data[::ds_factor,::ds_factor]
+
                 p = ax.contour(
                     lons,
                     lats,
@@ -251,6 +267,74 @@ def generateLocalPlot(params):
                 )
             
                 ax.clabel(p)
+        
+        elif algorithm == 'barbs':
+
+            u_comp = ds.isel(step=step)[data_var_names[0]]
+            v_comp = ds2.isel(step=step)[data_var_names[1]]
+
+            lons = ds.isel(step=step).longitude.values
+            lats = ds.isel(step=step).latitude.values
+
+            if np.ndim(lons) == 1 or np.ndim(lats) == 1:
+                lons,lats = np.meshgrid(lons,lats)
+
+            points = projection.transform_points(projPC, lons, lats)
+            xpts = points[:,:,0].flatten().tolist()
+            ypts = points[:,:,1].flatten().tolist()
+            crs_pts = list(zip(xpts,ypts))
+            fig_pts = ax.transData.transform(crs_pts)
+            ax_pts = ax.transAxes.inverted().transform(fig_pts)
+            x = ax_pts[:,0].reshape(lats.shape)
+            y = ax_pts[:,1].reshape(lats.shape)
+
+            mask = (x>=-0.05) & (x<=1.05) & (y>=-0.05) & (y<=1.05)
+
+            lons = np.ma.masked_array(lons, ~mask)
+            lats = np.ma.masked_array(lats, ~mask)
+            u_comp = np.ma.masked_array(u_comp, ~mask)
+            v_comp = np.ma.masked_array(v_comp, ~mask)
+            
+            magnitude = np.sqrt(u_comp ** 2 + v_comp ** 2)
+            magnitude = gaussian_filter(magnitude, sigma=1)
+
+            #magnitude = np.where(magnitude < 5, 0, magnitude)
+                        
+            pruner = ticker.MaxNLocator(prune = 'lower')
+
+            p = ax.contourf(
+                lons,
+                lats,
+                magnitude,
+                vmin=data_min, # GRAPH SPECIFIC
+                vmax=data_max, # GRAPH SPECIFIC
+                levels=data_max-data_min,
+                transform=projPC,
+                cmap=cmap,
+                zorder=1,
+                **{'locator': pruner},
+                algorithm='threaded',
+                transform_first=True,
+                alpha=0.5
+            )
+            
+            ds_factor = int(20 * (18 / model_res))
+            lats = lats[::ds_factor,::ds_factor]
+            lons = lons[::ds_factor,::ds_factor]
+            u_comp = u_comp[::ds_factor,::ds_factor]
+            v_comp = v_comp[::ds_factor,::ds_factor]
+            
+            p1 = ax.barbs(
+                lons, 
+                lats,
+                u_comp,
+                v_comp,
+                length=5,
+                regrid_shape = 20,
+                transform=projPC,
+                pivot='middle',
+                sizes={'emptybarb': 0}
+            )
 
         if not algorithm == 'contour':
             #Define the colorbar and its boundaries. Sets colorbar as segmented instead of continuous
@@ -275,8 +359,8 @@ def generateLocalPlot(params):
         #Ensure tight layout of figure, define the complete path and save it
         fig.tight_layout()
         plt.subplots_adjust(hspace=0,wspace=0)
-        final_path = path + model_name + '_' + product_name + '_' + forecast + '_' + state + '_' + time_string + '_' + str(fxx) + '.png'
-        print('Saving plot to ' + final_path)
+        final_path = path + model_name + '_' + product_name + '_' + forecast + height + '_' + state + '_' + time_string + '_' + str(fxx) + '.png'
+        #print('Saving plot to ' + final_path)
 
         #Adjust the labels so they don't horribly overlap
         #adjust_text(texts) broken :(
@@ -284,7 +368,7 @@ def generateLocalPlot(params):
         fig.savefig(final_path, edgecolor='black', dpi=120, transparent=True)
         
         #Add the path to the saved image to the list of paths to be saved
-        link_list.append('goes/model_data/operational/' + model_name + '_' + product_name + '_' + forecast + '_' + state + '_' + time_string + '_' + str(fxx) + '.png')
+        link_list.append('goes/model_data/operational/' + model_name + '_' + product_name + '_' + forecast + height + '_' + state + '_' + time_string + '_' + str(fxx) + '.png')
         
         #Clear the whole figure from memory or risk exploding your computer
         plt.clf() #SUPER DUPER IMPORTANT
@@ -292,4 +376,4 @@ def generateLocalPlot(params):
     # Sort the string_array using the custom key function
     link_list = sorted(link_list, key=extract_number)
         
-    return [model_name, product_name, forecast, state, link_list]
+    return [model_name, product_name, forecast + height, state, link_list]
